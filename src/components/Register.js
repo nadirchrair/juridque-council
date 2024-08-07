@@ -19,7 +19,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
-
+import {images} from '../Files/download22.jpeg'
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -64,14 +64,11 @@ export default function Register() {
     event.preventDefault();
 
     if (phone.length >= 1 && password.length >= 1 && confirmPassword.length >= 1 && password === confirmPassword && fullName.length >= 1 && profession.length >= 1 && state.length >= 1) {
-      // Call the function to add a user (this function should be defined elsewhere)
-      // Ajouteutlisateur(fullName, password, phone);
-
-      setShowAlert(true); // Show the alert on successful submission
+      setShowAlert(true);
       setTimeout(() => {
-        setShowAlert(false); // Hide the alert after a delay
+        setShowAlert(false);
         navigate('/login');
-      }, 3000); // Adjust the delay as needed
+      }, 3000);
     } else {
       setErr("يرجى إدخال معلومات صحيحة.");
     }
@@ -83,140 +80,138 @@ export default function Register() {
   };
 
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          {showAlert && (
-            <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-              تم إنشاء الحساب بنجاح. سيتم تأكيد الحساب وتفعيله بعد تأكيد معلوماتك من الفريق. سيتم التواصل معك عبر رقم هاتفك أو البريد الإلكتروني خلال أيام.
-            </Alert>
-          )}
-          <Box sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              التسجيل
-            </Typography>
-            <Box component="form" onSubmit={handleSubmit} validate="true" sx={{ mt: 1 }}>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        {showAlert && (
+          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success"  sx={{mt:'20px'}}>
+            تم إنشاء الحساب بنجاح. سيتم تأكيد الحساب وتفعيله بعد تأكيد معلوماتك من الفريق. سيتم التواصل معك عبر رقم هاتفك أو البريد الإلكتروني خلال أيام.
+          </Alert>
+        )}
+        <Box sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}>
+       <Avatar alt="Remy Sharp"  src={images}  sx={{ m: 1, bgcolor: "secondary.main" }} />
+          <Typography component="h1" variant="h5">
+            التسجيل
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="fullname"
+              label="الاسم الكامل"
+              name="fullname"
+              autoComplete="fullname"
+              autoFocus
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="Phone"
+              label="رقم الهاتف"
+              name="Phone"
+              autoComplete="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            <FormControl fullWidth required margin="normal">
+              <InputLabel id="profession-label">المهنة</InputLabel>
+              <Select
+                labelId="profession-label"
+                id="profession"
+                value={profession}
+                label="المهنة"
+                onChange={(e) => setProfession(e.target.value)}
+              >
+                <MenuItem value="محامي">محامي</MenuItem>
+                <MenuItem value="مترجم">مترجم</MenuItem>
+              </Select>
+            </FormControl>
+            {profession && (
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                id="fullname"
-                label="الاسم الكامل"
-                name="fullname"
-                autoComplete="fullname"
-                autoFocus
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                id="idNumber"
+                label={`رقم البطاقة المهنية (${profession})`}
+                name="idNumber"
+                type="number"
+                value={idNumber}
+                onChange={(e) => setIdNumber(e.target.value)}
               />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="Phone"
-                label="رقم الهاتف"
-                name="Phone"
-                autoComplete="phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+            )}
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="state"
+              label="الولاية"
+              name="state"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+            />
+            <FormControl sx={{ mt: 2, width: '100%' }} variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">كلمة المرور</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="كلمة المرور"
               />
-              <FormControl fullWidth required margin="normal">
-                <InputLabel id="profession-label">المهنة</InputLabel>
-                <Select
-                  labelId="profession-label"
-                  id="profession"
-                  value={profession}
-                  label="المهنة"
-                  onChange={(e) => setProfession(e.target.value)}
-                >
-                  <MenuItem value="محامي">محامي</MenuItem>
-                  <MenuItem value="مترجم">مترجم</MenuItem>
-                </Select>
-              </FormControl>
-              {profession && (
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="idNumber"
-                  label={`رقم البطاقة المهنية (${profession})`}
-                  name="idNumber"
-                  type="number"
-                  value={idNumber}
-                  onChange={(e) => setIdNumber(e.target.value)}
-                />
-              )}
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="state"
-                label="الولاية"
-                name="state"
-                value={state}
-                onChange={(e) => setState(e.target.value)}
+            </FormControl>
+            <FormControl sx={{ mt: 2, width: '100%' }} variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">تأكيد كلمة المرور</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? 'text' : 'password'}
+                name="cpassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="تأكيد كلمة المرور"
               />
-              <FormControl sx={{ mt: 2, width: '100%' }} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">كلمة المرور</InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
-                  type={showPassword ? 'text' : 'password'}
-                  name="password"
-                  autoComplete="current-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="كلمة المرور"
-                />
-              </FormControl>
-              <FormControl sx={{ mt: 2, width: '100%' }} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">تأكيد كلمة المرور</InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
-                  type={showPassword ? 'text' : 'password'}
-                  name="cpassword"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="تأكيد كلمة المرور"
-                />
-              </FormControl>
-              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                تسجيل
-              </Button>
+            </FormControl>
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, bgcolor: 'primary.main' }}>
+              تسجيل
+            </Button>
+            <Typography align="center" sx={{ mt: 2 }}>
               <a href="#" onClick={Login} role="button" tabIndex="0" style={{ color: "rgb(15, 64, 61)" }}>
                 إذا كان لديك حساب، قم بتسجيل الدخول
               </a>
-            </Box>
-            {err && <Typography color="error">{err}</Typography>}
+            </Typography>
           </Box>
-          <Copyright sx={{ mt: 4, mb: 2 }} />
-        </Container>
-      </ThemeProvider>
-    </>
+          {err && <Typography color="error" sx={{ mt: 2 }}>{err}</Typography>}
+        </Box>
+        <Copyright sx={{ mt: 4, mb: 2 }} />
+      </Container>
+    </ThemeProvider>
   );
 }

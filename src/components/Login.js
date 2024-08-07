@@ -17,10 +17,10 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import CollapseItem from './CollapseItem';
-import { loginUser } from '../Features/authSlice';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
+import { loginUser } from '../Features/authSlice';
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -29,7 +29,19 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "rgb(15, 64, 61)",
+    },
+    secondary: {
+      main: "rgb(15, 64, 61)",
+    },
+  },
+  typography: {
+    fontFamily: "Arial, sans-serif",
+  },
+});
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -50,34 +62,33 @@ export default function Login() {
     const data = new FormData(event.currentTarget);
     const phoneNumber = data.get('phoneNumber');
     const password = data.get('password');
-   // console.log("yes2")
 
     dispatch(loginUser({ phoneNumber, password }))
-        //    console.log("yes1")
-      //  localStorage.setItem('token', result.token); // Store token in localStorage
-      setShowAlert(true); // Show the alert on successful submission
-      setTimeout(() => {
-        setShowAlert(false); // Hide the alert after a delay
-        navigate('/');
-      }, 3000); // Adjust the delay as needed
-         };
+      .then(() => {
+        setShowAlert(true); // Show the alert on successful submission
+        setTimeout(() => {
+          setShowAlert(false); // Hide the alert after a delay
+          navigate('/');
+        }, 3000); // Adjust the delay as needed
+      })
+      .catch((err) => setErr(err.message));
+  };
 
   return (
     <>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
-        {showAlert && (
-              <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-               you add succes login 
-              </Alert>
-            )}
+          {showAlert && (
+            <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" sx={{mt:'20px'}}>
+              تم تسجيل الدخول بنجاح
+            </Alert>
+          )}
           <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>  
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component='h1' variant='h5'>
-              Sign in
+              تسجيل الدخول
             </Typography>
             <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -85,13 +96,13 @@ export default function Login() {
                 required
                 fullWidth
                 id='phoneNumber'
-                label='phoneNumber'
+                label='رقم الهاتف'
                 name='phoneNumber'
                 autoComplete='phone'
                 autoFocus
               />
               <FormControl sx={{ mt: 2, width: '100%' }} variant='outlined'>
-                <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
+                <InputLabel htmlFor='outlined-adornment-password'>كلمة المرور</InputLabel>
                 <OutlinedInput
                   id='outlined-adornment-password'
                   type={showPassword ? 'text' : 'password'}
@@ -109,14 +120,14 @@ export default function Login() {
                       </IconButton>
                     </InputAdornment>
                   }
-                  label='Password'
+                  label='كلمة المرور'
                 />
               </FormControl>
               <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
-                Sign In
+                تسجيل الدخول
               </Button>
-              {loading && <p>Loading...</p>}
-              {error && <CollapseItem err={err} />}
+              {loading && <p>جارٍ التحميل...</p>}
+              {error && <Typography color="error">{error}</Typography>}
             </Box>
           </Box>
           <Copyright sx={{ mt: 4, mb: 2 }} />
