@@ -15,30 +15,43 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout } from '../Features/authSlice';
 import { useNavigate } from 'react-router-dom';
 import Cart from './Cart'; // Import the updated Cart component
 import { RechercheOffer, TousOffre } from '../Fetch';
 import TextField from '@mui/material/TextField';
-
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const drawerWidth = 240;
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "rgb(15, 64, 61)",
+    },
+    secondary: {
+      main: "rgb(15, 64, 61)",
+    },
+  },
+  typography: {
+    fontFamily: "Arial, sans-serif",
+  },
+});
+
 const Principle = () => {
   const dispatch = useDispatch();
-  const token  =  localStorage.getItem('token');
+  const token = localStorage.getItem('token');
   const navigate = useNavigate();
-  
+
   const [offers, setOffers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 3;
   const [totalCards, setTotalCards] = useState(0);
   const totalPages = Math.ceil(totalCards / cardsPerPage);
   const [error, setError] = useState(null);
-  const [search,setSearch]= useState();
- 
-  
+  const [search, setSearch] = useState('');
+
   useEffect(() => {
     const loadOffers = async () => {
       try {
@@ -52,8 +65,9 @@ const Principle = () => {
 
     loadOffers();
   }, []);
+
   useEffect(() => {
-    const searchoffers = async () => {
+    const searchOffers = async () => {
       try {
         const data = await RechercheOffer(search);
         setOffers(data);
@@ -64,7 +78,7 @@ const Principle = () => {
     };
 
     if (search) {
-      searchoffers();
+      searchOffers();
     } else {
       // If there's no search query, load all offers
       const loadOffers = async () => {
@@ -80,6 +94,7 @@ const Principle = () => {
       loadOffers();
     }
   }, [search]);
+
   const handleLogout = () => {
     dispatch(logout());
     navigate('/login');
@@ -117,105 +132,115 @@ const Principle = () => {
           </ListItem>
         ))}
       </List>
+      <Divider />
+      {token ? (
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Typography variant="h6" sx={{ my: 1 }}>Welcome</Typography>
+          <Button variant="contained" onClick={() => navigate('/admin')}>Dashboard</Button>
+          <Button variant="contained" onClick={handleLogout}>Logout</Button>
+        </Box>
+      ) : (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center', my: 2 }}>
+          <Button variant="contained" sx={{ bgcolor: 'black', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main }} onClick={() => navigate('/login')}>Login</Button>
+          <Button variant="contained" sx={{ bgcolor: 'black', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main }} onClick={() => navigate('/register')}>Register</Button>
+        </Box>
+      )}
     </Box>
   );
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar component="nav">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            Platforme
-          </Typography>
-          <Box sx={{ display: { xs: 'flex', sm: 'flex' }, mr: 6 }}>
-            <Button sx={{ color: '#fff' }}>
-              Home
-            </Button>
-            {token ? (
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography variant="h6" sx={{ mr: 2 }}>Welcome</Typography>
-                <Button variant="contained" onClick={()=>navigate('/admin')}>Dashboard</Button>
-                <Button variant="contained" onClick={handleLogout}>Logout</Button>
-              </Box>
-            ) : (
-              <Box sx={{ display: 'flex', gap: 2 }}>
-                <Button variant="contained" onClick={() => navigate('/login')}>Login</Button>
-                <Button variant="contained" onClick={() => navigate('/register')}>Register</Button>
-              </Box>
-            )}
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-        sx={{
-          display: { xs: 'block', sm: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-        }}
-      >
-        {drawer}
-      </Drawer>
-   
-      <Box component="main" sx={{ p: 3, marginLeft: `100px`, width: '100%',display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column', // or 'row' if you want to center horizontally
-       }}>
-        <Toolbar />
-        <TextField id="outlined-basic" label="search" variant="outlined" sx={{marginBottom:"40px",marginRight:"auto",marginLeft:"auto",justifyContent:"center",width:'440px'}} onChange={(e)=>setSearch(e.target.value)} />
+    <ThemeProvider theme={theme}>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar component="nav" sx={{ backgroundColor: '#ffff', borderBottom: `1px solid ${theme.palette.primary.main}`,boxShadow: 'none' }}>
+          <Toolbar sx={{ justifyContent: 'space-between'}}>
+            <Typography variant="h6" component="div" color="primary" sx={{marginRight:'115px'}}>
+              Platforme
+            </Typography>
+            <Box  sx={{ 
+    display: { xs: 'none', sm: 'flex' }, 
+    alignItems: 'center', 
+    gap: 3, // Increased gap for better spacing
+    marginLeft: 'auto', // Align items to the right
+    marginRight: 'auto' // Center items horizontally
+  }}>
+              {['Home', 'About', 'Contact'].map((item) => (
+                <Typography variant="h6" key={item} sx={{ color: `${theme.palette.primary.main}`, marginRight: 3  }}>
+                  {item}
+                </Typography>
+              ))}
+              {token ? (
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <Typography variant="h6">Welcome</Typography>
+                  <Button variant="outlined" sx={{ bgcolor: 'white', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main }} onClick={() => navigate('/admin')}>Dashboard</Button>
+                  <Button variant="outlined" sx={{ bgcolor: 'white', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main }} onClick={handleLogout}>Logout</Button>
+                </Box>
+              ) : (
+                <Box sx={{ display: 'flex', gap: 2 }}>
+                  <Button variant="outlined" sx={{ bgcolor: 'white', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main }} onClick={() => navigate('/login')}>Login</Button>
+                  <Button variant="outlined" sx={{ bgcolor: 'white', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main }} onClick={() => navigate('/register')}>Register</Button>
+                </Box>
+              )}
+            </Box>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="end"
+              onClick={handleDrawerToggle}
+              sx={{ display: { sm: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+        >
+          {drawer}
+        </Drawer>
+        <Box component="main" sx={{ p: 3, marginLeft: { sm: `${drawerWidth}px` }, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+          <Toolbar />
+          <TextField
+            id="outlined-basic"
+            label="search"
+            variant="outlined"
+            sx={{ marginBottom: "40px", marginRight: "auto", marginLeft: "auto", justifyContent: "center", width: '440px' }}
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
-        {error && <Typography color="error">{error}</Typography>}
-        <Grid container spacing={2} justifyContent="center">
-          {currentOffers.length > 0 ? (
-            currentOffers.map((offer, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <Cart offer={offer} /> {/* Pass offer to Cart */}
-              </Grid>
-            ))
-          ) : (
-            <Typography>No offers available</Typography>
-          )}
-        </Grid>
-        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-          <Button
-            variant="outlined"
-            disabled={currentPage === 1}
-            onClick={() => handlePageChange(currentPage - 1)}
-          >
-            Previous
-          </Button>
-          <Typography sx={{ mx: 2 }}>
-            Page {currentPage} of {totalPages}
-          </Typography>
-          <Button
-            variant="outlined"
-            disabled={currentPage === totalPages}
-            onClick={() => handlePageChange(currentPage + 1)}
-          >
-            Next
-          </Button>
+          {error && <Typography color="error">{error}</Typography>}
+          <Grid container spacing={2} justifyContent="center">
+            {currentOffers.length > 0 ? (
+              currentOffers.map((offer, index) => (
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                  <Cart offer={offer} /> {/* Use the updated Cart component */}
+                </Grid>
+              ))
+            ) : (
+              <Typography variant="h6">No offers found.</Typography>
+            )}
+          </Grid>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+            <Button variant="outlined" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+              Previous
+            </Button>
+            <Typography variant="body1" sx={{ mx: 2 }}>{currentPage} of {totalPages}</Typography>
+            <Button variant="outlined" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+              Next
+            </Button>
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 };
 
