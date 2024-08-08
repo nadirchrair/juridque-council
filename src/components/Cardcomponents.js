@@ -9,7 +9,7 @@ const Root = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-around',
   marginTop: theme.spacing(6),
-  marginBottom: theme.spacing(3)
+  marginBottom: theme.spacing(3),
 }));
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -17,9 +17,9 @@ const StyledCard = styled(Card)(({ theme }) => ({
   height: '250px', // Adjust height as needed
   padding: theme.spacing(2),
   transition: 'transform 0.3s, box-shadow 0.3s',
+  boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
   '&:hover': {
     transform: 'translateY(-10px)',
-    boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
     '& .MuiSvgIcon-root': {
       transform: 'scale(1.2)',
       color: theme.palette.primary.main,

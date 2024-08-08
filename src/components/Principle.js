@@ -22,6 +22,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CarouselComponent from './CarouselComponent';
 import Aprops from './Aprops';
 import Cardcomponents from './Cardcomponents';
+import CustomerServicePage from './CustomerServicePage';
 
 const drawerWidth = 240;
 
@@ -212,7 +213,7 @@ const Principle = () => {
       
       <Box sx={{ mt: 0 }}>
         <Aprops />
-       
+       <CustomerServicePage/>
       </Box>
     </ThemeProvider>
   );
