@@ -16,6 +16,7 @@ import AddPhonenumber from "./components/addContent/Addphonenumber";
 import Addcontent from "./components/addContent/Addcontent";
 import UploadImage from "./components/addContent/UploadImage";
 import Admindash from "./components/adminpanel/Admindash";
+import CarouselComponent from "./components/CarouselComponent";
 export const App = () => {
   return (
     <React.Fragment>
@@ -74,6 +75,10 @@ export const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <Principle />,
+  },
+  {
+    path: "/car",
+    element: <CarouselComponent />,
   },
   
 ]);

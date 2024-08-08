@@ -14,14 +14,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
 import { useDispatch } from 'react-redux';
 import { logout } from '../Features/authSlice';
 import { useNavigate } from 'react-router-dom';
-import Cart from './Cart'; // Import the updated Cart component
 import { RechercheOffer, TousOffre } from '../Fetch';
-import TextField from '@mui/material/TextField';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CarouselComponent from './CarouselComponent';
+import Aprops from './Aprops';
+import Cardcomponents from './Cardcomponents';
 
 const drawerWidth = 240;
 
@@ -57,7 +57,7 @@ const Principle = () => {
       try {
         const data = await TousOffre();
         setOffers(data);
-        setTotalCards(data.length); // Assuming data is an array of offers
+        setTotalCards(data.length);
       } catch (error) {
         setError(error.message);
       }
@@ -71,7 +71,7 @@ const Principle = () => {
       try {
         const data = await RechercheOffer(search);
         setOffers(data);
-        setTotalCards(data.length); // Assuming data is an array of offers
+        setTotalCards(data.length);
       } catch (error) {
         setError(error.message);
       }
@@ -80,12 +80,11 @@ const Principle = () => {
     if (search) {
       searchOffers();
     } else {
-      // If there's no search query, load all offers
       const loadOffers = async () => {
         try {
           const data = await TousOffre();
           setOffers(data);
-          setTotalCards(data.length); // Assuming data is an array of offers
+          setTotalCards(data.length);
         } catch (error) {
           setError(error.message);
         }
@@ -100,12 +99,10 @@ const Principle = () => {
     navigate('/login');
   };
 
-  // Calculate the index range for the current page
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
   const currentOffers = offers.slice(startIndex, endIndex);
 
-  // Handle page change
   const handlePageChange = (page) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
@@ -152,20 +149,20 @@ const Principle = () => {
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar component="nav" sx={{ backgroundColor: '#ffff', borderBottom: `1px solid ${theme.palette.primary.main}`,boxShadow: 'none' }}>
+        <AppBar component="nav" sx={{ backgroundColor: '#ffff', borderBottom: `1px solid ${theme.palette.primary.main}`, boxShadow: 'none' }}>
           <Toolbar sx={{ justifyContent: 'space-between'}}>
             <Typography variant="h6" component="div" color="primary" sx={{marginRight:'115px'}}>
               Platforme
             </Typography>
-            <Box  sx={{ 
-    display: { xs: 'none', sm: 'flex' }, 
-    alignItems: 'center', 
-    gap: 3, // Increased gap for better spacing
-    marginLeft: 'auto', // Align items to the right
-    marginRight: 'auto' // Center items horizontally
-  }}>
+            <Box sx={{ 
+              display: { xs: 'none', sm: 'flex' }, 
+              alignItems: 'center', 
+              gap: 3,
+              marginLeft: 'auto',
+              marginRight: 'auto'
+            }}>
               {['Home', 'About', 'Contact'].map((item) => (
-                <Typography variant="h6" key={item} sx={{ color: `${theme.palette.primary.main}`, marginRight: 3  }}>
+                <Typography variant="h6" key={item} sx={{ color: `${theme.palette.primary.main}`, marginRight: 3 }}>
                   {item}
                 </Typography>
               ))}
@@ -198,7 +195,7 @@ const Principle = () => {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
@@ -207,38 +204,15 @@ const Principle = () => {
         >
           {drawer}
         </Drawer>
-        <Box component="main" sx={{ p: 3, marginLeft: { sm: `${drawerWidth}px` }, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-          <Toolbar />
-          <TextField
-            id="outlined-basic"
-            label="search"
-            variant="outlined"
-            sx={{ marginBottom: "40px", marginRight: "auto", marginLeft: "auto", justifyContent: "center", width: '440px' }}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+      </Box>
 
-          {error && <Typography color="error">{error}</Typography>}
-          <Grid container spacing={2} justifyContent="center">
-            {currentOffers.length > 0 ? (
-              currentOffers.map((offer, index) => (
-                <Grid item xs={12} sm={6} md={4} key={index}>
-                  <Cart offer={offer} /> {/* Use the updated Cart component */}
-                </Grid>
-              ))
-            ) : (
-              <Typography variant="h6">No offers found.</Typography>
-            )}
-          </Grid>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-            <Button variant="outlined" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-              Previous
-            </Button>
-            <Typography variant="body1" sx={{ mx: 2 }}>{currentPage} of {totalPages}</Typography>
-            <Button variant="outlined" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
-              Next
-            </Button>
-          </Box>
-        </Box>
+      <Box sx={{ mt: 3 }}>
+        <CarouselComponent />
+      </Box>
+      
+      <Box sx={{ mt: 0 }}>
+        <Aprops />
+       
       </Box>
     </ThemeProvider>
   );
