@@ -11,7 +11,7 @@ const staffMembers = [
 
 const CustomerServicePage = () => {
   return (
-    <Box sx={{ p: 3, direction: 'rtl' }}>
+    <Box sx={{ p: 3, direction: 'rtl', mt: 4 }}>
       <Typography variant="h4" gutterBottom>
         خدمة العملاء والمبيعات
       </Typography>
@@ -19,26 +19,26 @@ const CustomerServicePage = () => {
         يمكنك التواصل مع طاقمنا المميز بكل سهولة ويسر
       </Typography>
 
-      <Grid container spacing={3} justifyContent="center" sx={{ mt: 3 }}>
+      <Grid container spacing={0} justifyContent="center" sx={{ mt: 4 }}>
         {staffMembers.map((member, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card sx={{ width: '70%',padding:'30px',backgroundColor:'#f5f5f5'}}>
+          <Grid item xs={12} sm={6} md={4} key={index} sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Card sx={{ width: { xs: '90%', sm: '70%' }, padding: '15px', backgroundColor: '#f5f5f5', margin: 0 }}>
               <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Avatar src={member.avatar} sx={{ width: 80, height: 80, mb: 2 }} />
                 <Typography variant="h6" gutterBottom>
                   {member.name}
                 </Typography>
                 <Box>
-                  <IconButton 
-                    color="primary" 
-                    aria-label="phone" 
+                  <IconButton
+                    color="primary"
+                    aria-label="phone"
                     onClick={() => window.location.href = `tel:${member.phone}`}
                   >
                     <PhoneIcon />
                   </IconButton>
-                  <IconButton 
-                    color="secondary" 
-                    aria-label="whatsapp" 
+                  <IconButton
+                    color="secondary"
+                    aria-label="whatsapp"
                     onClick={() => window.location.href = `https://wa.me/${member.whatsapp}`}
                   >
                     <WhatsAppIcon />
