@@ -27,6 +27,8 @@ import LawyerCard from './LawyerCard';
 import { Container, Grid } from '@mui/material';
 import CardWork from './CardWork';
 import ContactForm from './ContactForm';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { styled } from '@mui/system';
 
 const drawerWidth = 240;
 
@@ -70,7 +72,20 @@ const Principle = () => {
 
     loadOffers();
   }, []);
+  const StyledIcon = styled(ArrowBackIcon)(({ theme }) => ({
+    marginRight: '10px',
+    border: `1px solid ${theme.palette.primary.main}`,
+    borderRadius: '50%',
+    fontSize: '3rem', // Increase the size of the icon
+    padding: '8px', // Add padding to give more space around the icon
+    transition: 'all 0.3s ease-in-out',
+    verticalAlign: 'middle',
 
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+      color: 'white',
+    },
+  }));
   useEffect(() => {
     const searchOffers = async () => {
       try {
@@ -149,7 +164,7 @@ const Principle = () => {
       </Typography>
       <Divider />
       <List>
-        {['Home', 'About', 'Contact'].map((item) => (
+        {['الرئيسية ', 'خدماتنا', 'استشارة','للشركات'].map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
               <ListItemText primary={item} />
@@ -166,7 +181,11 @@ const Principle = () => {
         </Box>
       ) : (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center', my: 2 }}>
-          <Button variant="contained" sx={{ bgcolor: 'black', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main }} onClick={() => navigate('/login')}>Login</Button>
+          <Button variant="contained" sx={{ bgcolor: 'black', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main,  '&:hover': {
+                      backgroundColor: theme.palette.primary.main,
+                      color: 'white',
+                      transition: 'all 0.3s ease-in-out',
+                    }, }} onClick={() => navigate('/login')}>Login</Button>
           <Button variant="contained" sx={{ bgcolor: 'black', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main }} onClick={() => navigate('/register')}>Register</Button>
         </Box>
       )}
@@ -181,8 +200,7 @@ const Principle = () => {
       phone: '+213 123 456 789',
       email: 'john.doe@example.com',
       address: '1234 Lawyer St, Algiers, Algeria',
-      profilePicture: 'https://via.placeholder.com/150',
-      firmLogo: 'https://via.placeholder.com/40',
+      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
     },
     {
       name: 'Jane Smith',
@@ -192,8 +210,7 @@ const Principle = () => {
       phone: '+213 987 654 321',
       email: 'jane.smith@example.com',
       address: '5678 Lawyer Ave, Oran, Algeria',
-      profilePicture: 'https://via.placeholder.com/150',
-      firmLogo: 'https://via.placeholder.com/40',
+      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
     },
     // Add 4 more lawyers with the same structure
     {
@@ -204,8 +221,7 @@ const Principle = () => {
       phone: '+213 111 213 141',
       email: 'ahmed.ali@example.com',
       address: '9101 Lawyer Rd, Constantine, Algeria',
-      profilePicture: 'https://via.placeholder.com/150',
-      firmLogo: 'https://via.placeholder.com/40',
+      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
     },
     {
       name: 'Fatima Zahra',
@@ -215,8 +231,7 @@ const Principle = () => {
       phone: '+213 515 161 718',
       email: 'fatima.zahra@example.com',
       address: '1234 Lawyer St, Annaba, Algeria',
-      profilePicture: 'https://via.placeholder.com/150',
-      firmLogo: 'https://via.placeholder.com/40',
+      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
     },
     {
       name: 'Omar Ibn Khattab',
@@ -226,8 +241,7 @@ const Principle = () => {
       phone: '+213 919 293 949',
       email: 'omar.khattab@example.com',
       address: '5678 Lawyer Ave, Blida, Algeria',
-      profilePicture: 'https://via.placeholder.com/150',
-      firmLogo: 'https://via.placeholder.com/40',
+      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
     },
     {
       name: 'Khadija Bint Khuwaylid',
@@ -237,8 +251,7 @@ const Principle = () => {
       phone: '+213 010 203 040',
       email: 'khadija.khuwaylid@example.com',
       address: '9101 Lawyer Rd, Tlemcen, Algeria',
-      profilePicture: 'https://via.placeholder.com/150',
-      firmLogo: 'https://via.placeholder.com/40',
+      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
     }
   ];
 
@@ -258,8 +271,8 @@ const Principle = () => {
               marginLeft: 'auto',
               marginRight: 'auto'
             }}>
-              {['Home', 'About', 'Contact'].map((item) => (
-                <Typography variant="h6" key={item} sx={{ color: `${theme.palette.primary.main}`, marginRight: 3 }}>
+              {['الرئيسية ', 'خدماتنا', 'استشارة','للشركات','انظم الينا'].map((item) => (
+                <Typography variant="h6" key={item} sx={{ color: `${theme.palette.primary.main}`, marginRight: 3 ,'&:hover':{cursor:'pointer'}}}>
                   {item}
                 </Typography>
               ))}
@@ -271,8 +284,11 @@ const Principle = () => {
                 </Box>
               ) : (
                 <Box sx={{ display: 'flex', gap: 2 }}>
-                  <Button variant="outlined" sx={{ bgcolor: 'white', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main }} onClick={() => navigate('/login')}>Login</Button>
-                  <Button variant="outlined" sx={{ bgcolor: 'white', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main }} onClick={() => navigate('/register')}>Register</Button>
+                  <Button variant="outlined" sx={{ mr:4,bgcolor: 'white', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main,  '&:hover': {
+                      backgroundColor: theme.palette.primary.main,
+                      color: 'white',
+                      transition: 'all 0.3s ease-in-out',
+                    }, }} onClick={() => navigate('/login')}>التسجيل</Button>
                 </Box>
               )}
             </Box>
@@ -309,10 +325,13 @@ const Principle = () => {
       
       <Box sx={{ mt: 0 }}>
         <Aprops />
-        <Box sx={{ p: 3, mt: 4,ml:3 }}>
+        <Box sx={{ p: 3,mt:5,mr:4 }}>
         <Typography variant="h4" gutterBottom>
-المحامين
-      </Typography>
+      <Box display="inline-flex" alignItems="center">
+        المحامين
+        <StyledIcon />
+      </Box>
+    </Typography>
       <Typography variant="subtitle1" gutterBottom>
         يمكنك اختيار المحامي المناسب لك
       </Typography>
@@ -320,14 +339,19 @@ const Principle = () => {
       </Box>
         <Grid container  sx={{ marginTop: 5 }}>
           {lawyers.map((lawyer, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index} sx={{pb:2}}>
-              <LawyerCard {...lawyer} />
+            <Grid item xs={12} sm={6} md={4} key={index} sx={{pb:2,       }}>
+              <LawyerCard {...lawyer}  />
             </Grid>
           ))}
         </Grid>
-        <Box sx={{ p: 3, mt: 4 ,ml:3}}>
+        <Box sx={{ p: 3, mt: 5 ,mr:4}}>
         <Typography variant="h4" gutterBottom>
+        <Box display="inline-flex" alignItems="center">
+
 المترجمين
+<StyledIcon />
+</Box>
+
       </Typography>
       <Typography variant="subtitle1" gutterBottom>
         يمكنك اختيار المترجم المناسب لك

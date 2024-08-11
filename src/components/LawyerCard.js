@@ -1,4 +1,3 @@
-// src/components/LawyerCard.js
 import React from 'react';
 import { Card, CardContent, Avatar, Typography, Grid, Box } from '@mui/material';
 import { styled } from '@mui/system';
@@ -6,16 +5,28 @@ import { styled } from '@mui/system';
 const LawyerCardContainer = styled(Card)(({ theme }) => ({
   maxWidth: 400,
   margin: 'auto',
-  border: '1px solid #ccc',
   borderRadius: '15px',
   direction: 'rtl',
+  '&:hover': {
+    border: `2px solid rgb(15, 64, 61)`,
+  },
+}));
+
+const CustomTypography = styled(Typography)(({ theme }) => ({
+  //color: 'rgb(15, 64, 61)',
+  fontFamily: 'Arial, sans-serif',
+  //textDecoration: 'underline',
+  fontSize:'15px',
+}));
+
+const SubtitleTypography = styled(Typography)(({ theme }) => ({
+  fontFamily: 'Georgia, serif',
 }));
 
 const LawyerCard = ({ name, title, wilaya, licenseNumber, phone, email, address, profilePicture, firmLogo }) => {
   return (
     <LawyerCardContainer>
       <CardContent>
-       
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <Avatar src={profilePicture} alt={name} sx={{ width: 80, height: 80 }} />
@@ -24,33 +35,30 @@ const LawyerCard = ({ name, title, wilaya, licenseNumber, phone, email, address,
             <Typography variant="h6" component="div">
               {name}
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary">
+            <SubtitleTypography variant="subtitle1" color="text.secondary">
               {title}
-            </Typography>
+            </SubtitleTypography>
             <Typography variant="body2" color="text.secondary">
               {wilaya}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <CustomTypography variant="body2">
               رقم الترخيص: {licenseNumber}
-            </Typography>
+            </CustomTypography>
           </Grid>
         </Grid>
       </CardContent>
       <Box sx={{ padding: '0 16px' }}>
-        <Typography variant="body2" color="text.secondary">
+        <CustomTypography variant="body2">
           الهاتف: {phone}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
+        </CustomTypography>
+        <CustomTypography variant="body2">
           البريد الإلكتروني: {email}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
+        </CustomTypography>
+        <CustomTypography variant="body2">
           العنوان: {address}
-        </Typography>
+        </CustomTypography>
       </Box>
-      <CardContent>
-    
-       
-      </CardContent>
+      <CardContent />
     </LawyerCardContainer>
   );
 };
