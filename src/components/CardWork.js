@@ -34,11 +34,14 @@ const CardWork = ({ title, subtitle, items }) => {
           </Typography>
           <List>
             {items.map((item, index) => (
-              <ListItem key={index} sx={{ textAlign: 'left' }}>
-                <ListItemIcon>
-                  <CheckCircleIcon sx={{ color: 'rgb(15, 64, 61)',fontSize:'28px' }} />
+              <ListItem key={index} sx={{ display: 'flex', justifyContent: 'space-between', textAlign: 'right' }}>
+                <ListItemIcon sx={{ minWidth: 'auto', marginRight: '10px' }}>
+                  <CheckCircleIcon sx={{ color: 'rgb(15, 64, 61)', fontSize: '28px' }} />
                 </ListItemIcon>
-                <ListItemText primary={item} sx={{ textAlign: 'left',fontSize:'20px'  }}/>
+                <ListItemText 
+                  primary={item} 
+                  primaryTypographyProps={{  textAlign: 'right',mr:'15px' }} 
+                />
               </ListItem>
             ))}
           </List>

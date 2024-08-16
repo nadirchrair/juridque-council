@@ -3,20 +3,7 @@ import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { useDispatch } from 'react-redux';
-import { logout } from '../Features/authSlice';
-import { useNavigate } from 'react-router-dom';
 import { RechercheOffer, TousOffre } from '../Fetch';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CarouselComponent from './CarouselComponent';
@@ -29,8 +16,8 @@ import CardWork from './CardWork';
 import ContactForm from './ContactForm';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { styled } from '@mui/system';
-import { Twitter, Instagram,  YouTube, LinkedIn } from '@mui/icons-material';
-import Link from '@mui/material/Link';
+import AppNavBar from './AppNavBar';
+import Footer1 from './Footer1';
 const drawerWidth = 240;
 
 const theme = createTheme({
@@ -48,10 +35,6 @@ const theme = createTheme({
 });
 
 const Principle = () => {
-  const dispatch = useDispatch();
-  const token = localStorage.getItem('token');
-  const navigate = useNavigate();
-
   const [offers, setOffers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 3;
@@ -115,10 +98,7 @@ const Principle = () => {
     }
   }, [search]);
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate('/login');
-  };
+  
 
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
@@ -130,10 +110,7 @@ const Principle = () => {
     }
   };
 
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
-  };
+ 
   const data = [
     {
       title: 'إجراءات الاستقدام',
@@ -158,40 +135,6 @@ const Principle = () => {
   ];
   
 
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ mx: 2 }}>
-        Platforme
-      </Typography>
-      <Divider />
-      <List>
-        {['الرئيسية ', 'خدماتنا', 'استشارة','للشركات'].map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      {token ? (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Typography variant="h6" sx={{ my: 1 }}>Welcome</Typography>
-          <Button variant="contained" onClick={() => navigate('/admin')}>Dashboard</Button>
-          <Button variant="contained" onClick={handleLogout}>Logout</Button>
-        </Box>
-      ) : (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center', my: 2 }}>
-          <Button variant="contained" sx={{ bgcolor: 'black', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main,  '&:hover': {
-                      backgroundColor: theme.palette.primary.main,
-                      color: 'white',
-                      transition: 'all 0.3s ease-in-out',
-                    }, }} onClick={() => navigate('/login')}>Login</Button>
-          <Button variant="contained" sx={{ bgcolor: 'black', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main }} onClick={() => navigate('/register')}>Register</Button>
-        </Box>
-      )}
-    </Box>
-  );
   const lawyers = [
     {
       name: 'John Doe',
@@ -260,64 +203,7 @@ const Principle = () => {
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar component="nav" sx={{ backgroundColor: '#ffff', borderBottom: `1px solid ${theme.palette.primary.main}`, boxShadow: 'none' }}>
-          <Toolbar sx={{ justifyContent: 'space-between'}}>
-            <Typography variant="h6" component="div" color="primary" sx={{marginRight:'115px'}}>
-              Platforme
-            </Typography>
-            <Box sx={{ 
-              display: { xs: 'none', sm: 'flex' }, 
-              alignItems: 'center', 
-              gap: 3,
-              marginLeft: 'auto',
-              marginRight: 'auto'
-            }}>
-              {['الرئيسية ', 'خدماتنا', 'استشارة','للشركات','انظم الينا'].map((item) => (
-                <Typography variant="h6" key={item} sx={{ color: `${theme.palette.primary.main}`, marginRight: 3 ,'&:hover':{cursor:'pointer'}}}>
-                  {item}
-                </Typography>
-              ))}
-              {token ? (
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                  <Typography variant="h6">Welcome</Typography>
-                  <Button variant="outlined" sx={{ bgcolor: 'white', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main }} onClick={() => navigate('/admin')}>Dashboard</Button>
-                  <Button variant="outlined" sx={{ bgcolor: 'white', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main }} onClick={handleLogout}>Logout</Button>
-                </Box>
-              ) : (
-                <Box sx={{ display: 'flex', gap: 2 }}>
-                  <Button variant="outlined" sx={{ mr:4,bgcolor: 'white', border: `1px solid ${theme.palette.primary.main}`, color: theme.palette.primary.main,  '&:hover': {
-                      backgroundColor: theme.palette.primary.main,
-                      color: 'white',
-                      transition: 'all 0.3s ease-in-out',
-                    }, }} onClick={() => navigate('/login')}>التسجيل</Button>
-                </Box>
-              )}
-            </Box>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="end"
-              onClick={handleDrawerToggle}
-              sx={{ display: { sm: 'none' } }}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
+       <AppNavBar/>
       </Box>
 
       <Box sx={{ mt: 3 }}>
@@ -374,48 +260,8 @@ const Principle = () => {
   </Box>
   <ContactForm/>
       </Box>
-      <Box sx={{ bgcolor: '#5da79c', color: 'white', py: 6 }}>
-      <Container maxWidth="lg">
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={4}>
-            <Typography variant="h6" sx={{ mb: 2 }}>خدماتنا</Typography>
-            <Box sx={{ mb: 2 }}>
-              <Link href="#" color="inherit" underline="none">اختيار العمالة</Link><br />
-              <Link href="#" color="inherit" underline="none">تعاقد الاستقدام</Link><br />
-              <Link href="#" color="inherit" underline="none">سياسات الاستقدام</Link><br />
-              <Link href="#" color="inherit" underline="none">مركز المساعدة</Link><br />
-              <Link href="#" color="inherit" underline="none">الأسئلة الشائعة</Link><br />
-              <Link href="#" color="inherit" underline="none">المقالات</Link><br />
-              <Link href="#" color="inherit" underline="none">رقم مسؤول نقل الكفالة: 0548454148</Link>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Typography variant="h6" sx={{ mb: 2 }}>المزيد</Typography>
-            <Box sx={{ mb: 2 }}>
-              <Typography>عنوان مكتبنا: الشيخ جابر الاحمد الصباح حي المعيزيلة الرياض 13231</Typography>
-              <Typography>البريد الإلكتروني: info@rawafadnejd.sa</Typography>
-              <Typography>المبيعات: 8003030309</Typography>
-              <Typography>الشكاوى والاقتراحات: 8003030309</Typography>
-              <Typography>رقم السجل التجاري للمكتب: 1010595382</Typography>
-              <Typography>رقم المسجلة لدى وزارة الموارد البشرية: 41012064</Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={4} textAlign="center">
-            <Typography variant="h6" sx={{ mb: 2 }}>رواد نجد للاستقدام</Typography>
-            <Typography>أفضل مكتب استقدام العمالة المنزلية السعودية بمقاييس دولية موثوقة عالية نسعى لتقديم تجربة استقدام مثالية لعملائنا.</Typography>
-            <Box sx={{ mt: 2 }}>
-              <IconButton color="inherit" href="#"><Twitter /></IconButton>
-              <IconButton color="inherit" href="#"><Instagram /></IconButton>
-              <IconButton color="inherit" href="#"><YouTube /></IconButton>
-              <IconButton color="inherit" href="#"><LinkedIn /></IconButton>
-            </Box>
-          </Grid>
-        </Grid>
-        <Box textAlign="center" mt={4}>
-          <Typography>© جميع الحقوق محفوظة رواد نجد للاستقدام 2024</Typography>
-        </Box>
-      </Container>
-    </Box>    </ThemeProvider>
+    <Footer1/>
+    </ThemeProvider>
   );
 };
 

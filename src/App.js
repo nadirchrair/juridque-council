@@ -17,6 +17,7 @@ import Addcontent from "./components/addContent/Addcontent";
 import UploadImage from "./components/addContent/UploadImage";
 import Admindash from "./components/adminpanel/Admindash";
 import CarouselComponent from "./components/CarouselComponent";
+import Services from "./components/Services";
 export const App = () => {
   return (
     <React.Fragment>
@@ -79,6 +80,10 @@ export const appRouter = createBrowserRouter([
   {
     path: "/car",
     element: <CarouselComponent />,
+  },
+  {
+    path: "/خدماتنا",
+    element: <Services />,
   },
   
 ]);

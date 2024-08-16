@@ -7,13 +7,13 @@ import image2 from '../assets/page2.jpg';
 
 const items = [
     {
-        name: "Random Name #1",
-        description: "منصة المجلس القانوني",
+        name: "E-SAJ",
+        description: "اكتشف كيف يمكن أن تعزز كفاءة أعمالك القانونية ",
         image: image1 // Replace with your image URL
     },
     {
-        name: "Random Name #2",
-        description: "منصة المجلس القانوني",
+        name: "E-SAJ",
+        description: "اكتشف كيف يمكن أن تسرع من عملياتك القانوني",
         image: image2 // Replace with your image URL
     }
 ];
@@ -80,14 +80,18 @@ function Item(props) {
                 textAlign: 'center',
                 borderRadius: '10px'
             }}>
-                <h2>{name}</h2>
-                <p>{description}</p>
+                <h1>{name}</h1>
+                <p   style={{ 
+                        fontSize: '40px',
+                       
+                    }}>{description}</p>
                 <Button 
                     variant="contained" 
                     style={{ 
                         marginTop: '20px',
                         backgroundColor: 'white', 
-                        color: 'black' 
+                        color: 'black' ,
+                        padding:'15px'
                     }}
                 >
                     شاهد العروض
