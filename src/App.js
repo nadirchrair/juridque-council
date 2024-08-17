@@ -18,6 +18,8 @@ import UploadImage from "./components/addContent/UploadImage";
 import Admindash from "./components/adminpanel/Admindash";
 import CarouselComponent from "./components/CarouselComponent";
 import Services from "./components/Services";
+import Consultation from "./components/Consultation";
+import CompanyServices from "./components/CompanyServices";
 export const App = () => {
   return (
     <React.Fragment>
@@ -84,6 +86,14 @@ export const appRouter = createBrowserRouter([
   {
     path: "/خدماتنا",
     element: <Services />,
+  },
+  {
+    path: "/استشارة",
+    element: <Consultation />,
+  },
+  {
+    path: "/للشركات",
+    element: <CompanyServices />,
   },
   
 ]);
