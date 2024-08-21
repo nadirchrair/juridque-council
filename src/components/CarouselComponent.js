@@ -2,8 +2,8 @@ import React from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Paper, Button } from '@mui/material';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
-import image1 from '../assets/pag.png';
-import image2 from '../assets/page2.jpg';
+import image1 from '../assets/pic1.jpg';
+import image2 from '../assets/pic2.jpg';
 
 const items = [
     {

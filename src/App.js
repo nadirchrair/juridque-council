@@ -20,6 +20,7 @@ import CarouselComponent from "./components/CarouselComponent";
 import Services from "./components/Services";
 import Consultation from "./components/Consultation";
 import CompanyServices from "./components/CompanyServices";
+import ConsultationForm from "./components/ConsultationForm";
 export const App = () => {
   return (
     <React.Fragment>
@@ -95,5 +96,8 @@ export const appRouter = createBrowserRouter([
     path: "/للشركات",
     element: <CompanyServices />,
   },
-  
+  {
+    path: "/form",
+    element: <ConsultationForm />,
+  },
 ]);
