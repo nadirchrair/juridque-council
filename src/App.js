@@ -39,9 +39,9 @@ export const appRouter = createBrowserRouter([
       {
         path: "",
         element: (
-          <PrivateRoute>
+      //    <PrivateRoute>
             <Admindash />
-          </PrivateRoute>
+        //  </PrivateRoute>
         ),
       },
       {
