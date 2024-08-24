@@ -21,6 +21,10 @@ import Services from "./components/Services";
 import Consultation from "./components/Consultation";
 import CompanyServices from "./components/CompanyServices";
 import ConsultationForm from "./components/ConsultationForm";
+import Datafiles from "./components/AdminDashboard/Datafiles";
+import AddBlog from "./components/AdminDashboard/AddBlog";
+import ConsultationTable from "./components/AdminDashboard/ConsultationTable";
+import JoinUs from "./components/AdminDashboard/JoinUs";
 export const App = () => {
   return (
     <React.Fragment>
@@ -60,6 +64,38 @@ export const appRouter = createBrowserRouter([
           <PrivateRoute>
             <UploadImage />
           </PrivateRoute>
+        ),
+      },
+      {
+        path: "المستندات",
+        element: (
+       //   <PrivateRoute>
+            <Datafiles />
+         // </PrivateRoute>
+        ),
+      },
+      {
+        path: "كتابة مقال",
+        element: (
+       //   <PrivateRoute>
+            <AddBlog />
+         // </PrivateRoute>
+        ),
+      },
+      {
+        path: "الاستشارات",
+        element: (
+       //   <PrivateRoute>
+            <ConsultationTable />
+         // </PrivateRoute>
+        ),
+      },
+      {
+        path: "انضم لنا",
+        element: (
+       //   <PrivateRoute>
+            <JoinUs />
+         // </PrivateRoute>
         ),
       },
      ],

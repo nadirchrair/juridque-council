@@ -90,8 +90,8 @@ export default function TemporaryDrawer({ status, setStatus }) {
       <List>
         {["المستندات", "كتابة مقال", "الاستشارات", "انضم لنا","تسجيل الخروج"].map(
           (text, index) => (
-            <ListItem key={text} onClick={() => clickComponent(index)} disablePadding>
-              <ListItemButton>
+            <ListItem key={text} onClick={() => navigate(`/admin/${text}`)} disablePadding>
+              <ListItemButton >
                 <ListItemIcon>{getIconComponent(index)}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
