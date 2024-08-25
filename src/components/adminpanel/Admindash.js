@@ -14,12 +14,13 @@ import WorkIcon from '@mui/icons-material/Work';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 
+// Styled components
 const ProfileCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(4),
   display: 'flex',
   backgroundColor: '#ffffff',
   boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.1)',
-  minHeight: '300px', // Increased height for more content
+  minHeight: '300px',
   flexDirection: 'column',
   justifyContent: 'space-between',
 }));
@@ -43,10 +44,12 @@ const StatisticIcon = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   marginBottom: theme.spacing(1),
-  fontSize: '2rem',
+  fontSize: '3rem',
   color: theme.palette.primary.main,
+  marginRight:'14px',
 }));
 
+// Profile Card Component
 const ProfileCardContent = () => (
   <ProfileCard>
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -86,6 +89,7 @@ const ProfileCardContent = () => (
   </ProfileCard>
 );
 
+// Statistics Card Component
 const StatisticsCardContent = ({ title, value, icon }) => (
   <StatisticsCard>
     <StatisticIcon>{icon}</StatisticIcon>
@@ -98,30 +102,36 @@ const StatisticsCardContent = ({ title, value, icon }) => (
   </StatisticsCard>
 );
 
+// Admin Dashboard Component
 const Admindash = () => {
   return (
     <Box sx={{ width: 'auto', marginTop: '50px' }}>
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <ProfileCardContent />
-        </Grid>
-        <Grid item xs={12} md={6}>
+    <Grid container spacing={4}>
+      {/* Profile Card taking full width */}
+      <Grid item xs={12}>
+        <ProfileCardContent />
+      </Grid>
+
+      {/* Statistics Cards in a grid layout */}
+      <Grid container spacing={4} mt={4}>
+        <Grid item xs={12} md={6} >
           <StatisticsCardContent title="Total Consultations" value="120" icon={<BusinessIcon />} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} >
           <StatisticsCardContent title="Profile Views" value="500" icon={<BusinessIcon />} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} >
           <StatisticsCardContent title="Pending Consultations" value="45" icon={<BusinessIcon />} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} >
           <StatisticsCardContent title="Completed Consultations" value="75" icon={<BusinessIcon />} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} >
           <StatisticsCardContent title="Last Active" value="August 23, 2024" icon={<EventAvailableIcon />} />
         </Grid>
       </Grid>
-    </Box>
+    </Grid>
+  </Box>
   );
 };
 
