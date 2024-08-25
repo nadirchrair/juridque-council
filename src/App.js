@@ -25,6 +25,7 @@ import Datafiles from "./components/AdminDashboard/Datafiles";
 import AddBlog from "./components/AdminDashboard/AddBlog";
 import ConsultationTable from "./components/AdminDashboard/ConsultationTable";
 import JoinUs from "./components/JoinUs";
+import JoinUs2 from "./components/AdminDashboard/JoinUs2";
 export const App = () => {
   return (
     <React.Fragment>
@@ -94,7 +95,7 @@ export const appRouter = createBrowserRouter([
         path: "انضم لنا",
         element: (
        //   <PrivateRoute>
-            <JoinUs />
+            <JoinUs2 />
          // </PrivateRoute>
         ),
       },
