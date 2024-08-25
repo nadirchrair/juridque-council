@@ -24,7 +24,7 @@ import ConsultationForm from "./components/ConsultationForm";
 import Datafiles from "./components/AdminDashboard/Datafiles";
 import AddBlog from "./components/AdminDashboard/AddBlog";
 import ConsultationTable from "./components/AdminDashboard/ConsultationTable";
-import JoinUs from "./components/AdminDashboard/JoinUs";
+import JoinUs from "./components/JoinUs";
 export const App = () => {
   return (
     <React.Fragment>
@@ -133,7 +133,12 @@ export const appRouter = createBrowserRouter([
     element: <CompanyServices />,
   },
   {
+    path: "/انظم الينا",
+    element: <JoinUs />,
+  },
+  {
     path: "/form",
     element: <ConsultationForm />,
   },
+
 ]);

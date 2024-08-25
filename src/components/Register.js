@@ -23,7 +23,7 @@ import {images} from '../Files/download22.jpeg'
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      Created by Cherair Nadir {" © "} {new Date().getFullYear()}
+      Created by E-Saj {" © "} {new Date().getFullYear()}
     </Typography>
   );
 }
