@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Container, Typography, Grid, TextField, Button, Paper, Box, CssBaseline } from '@mui/material';
 import AppNavBar from './AppNavBar';
@@ -26,10 +26,69 @@ const theme = createTheme({
 });
 
 const Consultation = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle form submission here
+   // State for form inputs
+   const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  });
+
+  // State for form errors
+  const [formErrors, setFormErrors] = useState({});
+
+  // Handle input change
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
+
+  // Handle form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Validate form data
+    const errors = validateForm(formData);
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    // Send data to backend API
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      // Handle success response
+      alert('Your consultation request has been submitted successfully!');
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' }); // Clear form
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an error submitting your request. Please try again later.');
+    }
+  };
+
+  // Validate form inputs
+  const validateForm = (data) => {
+    const errors = {};
+    if (!data.name) errors.name = 'Name is required';
+    if (!data.email) errors.email = 'Email is required';
+    if (!data.phone) errors.phone = 'Phone number is required';
+    if (!data.subject) errors.subject = 'Subject is required';
+    if (!data.message) errors.message = 'Message is required';
+    return errors;
+  };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -125,6 +184,10 @@ const Consultation = () => {
                   variant="outlined"
                   required
                   autoFocus
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  error={!!formErrors.name}
+                  helperText={formErrors.name}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -135,6 +198,10 @@ const Consultation = () => {
                   type="email"
                   variant="outlined"
                   required
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  error={!!formErrors.email}
+                  helperText={formErrors.email}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -145,6 +212,10 @@ const Consultation = () => {
                   type="tel"
                   variant="outlined"
                   required
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  error={!!formErrors.phone}
+                  helperText={formErrors.phone}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -154,6 +225,10 @@ const Consultation = () => {
                   name="subject"
                   variant="outlined"
                   required
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  error={!!formErrors.subject}
+                  helperText={formErrors.subject}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -165,6 +240,10 @@ const Consultation = () => {
                   rows={4}
                   variant="outlined"
                   required
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  error={!!formErrors.message}
+                  helperText={formErrors.message}
                 />
               </Grid>
               <Grid item xs={12}>
