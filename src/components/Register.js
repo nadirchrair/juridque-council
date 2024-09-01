@@ -19,7 +19,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
-import {images} from '../Files/download22.jpeg'
+import axios from 'axios';  // Import axios for HTTP requests
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -60,15 +61,35 @@ export default function Register() {
     event.preventDefault();
   };
 
+  const handleRegister = async () => {
+    try {
+      const response = await axios.post('/api/register', {  // Adjust the endpoint as needed
+        fullName,
+        phone,
+        profession,
+        idNumber,
+        state,
+        password,
+      });
+
+      if (response.status === 200) {
+        setShowAlert(true);
+        setTimeout(() => {
+          setShowAlert(false);
+          navigate('/login');
+        }, 3000);
+      }
+    } catch (error) {
+      console.error(error);
+      setErr("حدث خطأ أثناء إنشاء الحساب. حاول مرة أخرى.");
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
     if (phone.length >= 1 && password.length >= 1 && confirmPassword.length >= 1 && password === confirmPassword && fullName.length >= 1 && profession.length >= 1 && state.length >= 1) {
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-        navigate('/login');
-      }, 3000);
+      handleRegister();  // Call the function to handle registration
     } else {
       setErr("يرجى إدخال معلومات صحيحة.");
     }
@@ -88,7 +109,9 @@ export default function Register() {
           </Alert>
         )}
         <Box sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}>
-       <Avatar alt="Remy Sharp"  src={images}  sx={{ m: 1, bgcolor: "secondary.main" }} />
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
           <Typography component="h1" variant="h5">
             التسجيل
           </Typography>

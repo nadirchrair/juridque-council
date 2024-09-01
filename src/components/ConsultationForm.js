@@ -85,16 +85,11 @@ const ConsultationForm = () => {
         if (!response.ok) {
           throw new Error('Something went wrong. Please try again later.');
         }
-
-        // Parse the JSON response (optional, based on your backend response)
-        const data = await response.json();
-
         // Handle success, display a success message
         setSubmissionMessage('تم إرسال طلبك بنجاح!');
         setLoading(false);  // Reset loading state
-
         // Redirect to thank you page
-        navigate('/thank-you');
+        navigate('/thank_you');
 
       } catch (error) {
         console.error('Error during form submission:', error);
