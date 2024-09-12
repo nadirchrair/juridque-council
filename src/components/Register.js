@@ -19,8 +19,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
-import axios from 'axios';  // Import axios for HTTP requests
-
+import { registerUser } from "../Fetch";
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -63,38 +62,32 @@ export default function Register() {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post('/api/register', {  // Adjust the endpoint as needed
-        fullName,
-        phone,
-        profession,
-        idNumber,
-        state,
-        password,
-      });
-
-      if (response.status === 200) {
-        setShowAlert(true);
-        setTimeout(() => {
-          setShowAlert(false);
-          navigate('/login');
-        }, 3000);
-      }
+      // Call the external registration function
+      await registerUser(fullName, phone, profession, idNumber, state, password);
+  
+      // If successful, show the alert and navigate to the login page
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+        navigate('/login');
+      }, 3000);
     } catch (error) {
       console.error(error);
       setErr("حدث خطأ أثناء إنشاء الحساب. حاول مرة أخرى.");
     }
   };
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (phone.length >= 1 && password.length >= 1 && confirmPassword.length >= 1 && password === confirmPassword && fullName.length >= 1 && profession.length >= 1 && state.length >= 1) {
+  
+    if (phone.length >= 1 && password.length >= 1 && confirmPassword.length >= 1 &&
+        password === confirmPassword && fullName.length >= 1 &&
+        profession.length >= 1 && state.length >= 1) {
       handleRegister();  // Call the function to handle registration
     } else {
       setErr("يرجى إدخال معلومات صحيحة.");
     }
   };
-
   const Login = (event) => {
     event.preventDefault();
     navigate("/login");
@@ -202,25 +195,25 @@ export default function Register() {
             <FormControl sx={{ mt: 2, width: '100%' }} variant="outlined">
               <InputLabel htmlFor="outlined-adornment-password">تأكيد كلمة المرور</InputLabel>
               <OutlinedInput
-                id="outlined-adornment-password"
-                type={showPassword ? 'text' : 'password'}
-                name="cpassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="تأكيد كلمة المرور"
-              />
+  id="outlined-adornment-password"
+  type={showPassword ? 'text' : 'password'}
+  name="cpassword"
+  value={confirmPassword}
+  onChange={(e) => setConfirmPassword(e.target.value)}
+  endAdornment={
+    <InputAdornment position="end"> {/* Change "start" to "end" */}
+      <IconButton
+        aria-label="toggle password visibility"
+        onClick={handleClickShowPassword}
+        onMouseDown={handleMouseDownPassword}
+        edge="end"
+      >
+        {showPassword ? <VisibilityOff /> : <Visibility />}
+      </IconButton>
+    </InputAdornment>
+  }
+  label="تأكيد كلمة المرور"
+/>
             </FormControl>
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, bgcolor: 'primary.main' }}>
               تسجيل

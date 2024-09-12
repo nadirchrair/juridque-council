@@ -4,7 +4,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
-import { RechercheOffer, TousOffre } from '../Fetch';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CarouselComponent from './CarouselComponent';
 import Aprops from './Aprops';
@@ -42,7 +41,7 @@ const Principle = () => {
   const totalPages = Math.ceil(totalCards / cardsPerPage);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
-
+/*
   useEffect(() => {
     const loadOffers = async () => {
       try {
@@ -55,7 +54,8 @@ const Principle = () => {
     };
 
     loadOffers();
-  }, []);
+  }, []);*/
+
   const StyledIcon = styled(ArrowBackIcon)(({ theme }) => ({
     marginRight: '10px',
     border: `1px solid ${theme.palette.primary.main}`,
@@ -70,6 +70,7 @@ const Principle = () => {
       color: 'white',
     },
   }));
+  /*
   useEffect(() => {
     const searchOffers = async () => {
       try {
@@ -98,7 +99,7 @@ const Principle = () => {
     }
   }, [search]);
 
-  
+  */
 
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;

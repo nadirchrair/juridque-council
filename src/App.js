@@ -12,9 +12,6 @@ import MenuAppBar from "./components/MenuAppBar";
 import Categories from "./components/Categories/Categories";
 import Register from "./components/Register";
 import Principle from "./components/Principle";
-import AddPhonenumber from "./components/addContent/Addphonenumber";
-import Addcontent from "./components/addContent/Addcontent";
-import UploadImage from "./components/addContent/UploadImage";
 import Admindash from "./components/adminpanel/Admindash";
 import CarouselComponent from "./components/CarouselComponent";
 import Services from "./components/Services";
@@ -47,24 +44,6 @@ export const appRouter = createBrowserRouter([
       //    <PrivateRoute>
             <Admindash />
         //  </PrivateRoute>
-        ),
-      },
-      {
-        path: "phonenumber",
-        element: (          <PrivateRoute>   <AddPhonenumber/>       </PrivateRoute>
-
-          )
-      },
-      {
-        path: "addpost",
-        element:(  <PrivateRoute> <Addcontent /> </PrivateRoute>) ,
-      },
-      {
-        path: "addpost/upload-image/:id",
-        element: (
-          <PrivateRoute>
-            <UploadImage />
-          </PrivateRoute>
         ),
       },
       {

@@ -1,30 +1,34 @@
 import { URL } from "../constants/Constants";
-const Ajouternmr = (nmr,token) =>{
-    fetch(`${URL}/phone-numbers/me`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+// External function for handling the registration API request
+const registerUser = async (fullName, phone, profession, idNumber, state, password) => {
+  try {
+    const response = await fetch(`${URL}/api/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        fullName,
+        phone,
+        profession,
+        idNumber,
+        state,
+        password,
+      }),
+    });
 
-        },
-        body: JSON.stringify({  
-          phoneNumber: nmr,
-        }) 
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to create phone number');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data); // Output: { message: "Category Created" }
-      })
-      .catch(error => {
-        console.error(error); // Handle error
-      });
-}
+    if (!response.ok) {
+      throw new Error('Failed to register user');
+    }
 
+    const data = await response.json();
+    console.log(data); // Output success message or additional data
+    return data;
+  } catch (error) {
+    console.error('Error during registration:', error);
+    throw error; // Rethrow to handle the error in the calling function
+  }
+};
 const AjoutepostText = (text, token) => {
   return fetch(`${URL}/offers`, {
     method: 'POST',
@@ -51,6 +55,7 @@ const AjoutepostText = (text, token) => {
     throw error;
   });
 }
+
 const AjouterpostImage = (image,id, token) => {
   return fetch(`${URL}/offers/${id}/images/`, {
     method: 'POST',
@@ -77,6 +82,7 @@ const AjouterpostImage = (image,id, token) => {
     throw error;
   });
 }
+
 const Ajouteutlisateur = async (fullname, password, phone) => {
   try {
     const response = await fetch(`${URL}/auth/signup`, {
@@ -129,6 +135,7 @@ const TousOffre = async () => {
     throw new Error(error.message); // Rethrow the error to handle it in the component
   }
 };
+
 const RechercheOffer=async (search)=>{
   try {
     const response = await fetch(`${URL}/offers?filterOn=description&filterQuery=${search}`, {
@@ -196,6 +203,4 @@ const Tousmesphone = async (token) => {
 
 
 
-
-
-export { Ajouternmr ,AjouterpostImage,AjoutepostText ,Ajouteutlisateur,TousOffre,RechercheOffer,TousmesOffre,Tousmesphone};
+export { registerUser};
