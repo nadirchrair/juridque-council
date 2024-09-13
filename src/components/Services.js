@@ -5,7 +5,8 @@ import Footer1 from './Footer1';
 import { Box, CssBaseline, Grid, Button } from '@mui/material';
 import AdvancedSearch from './AdvancedSearch';
 import LawyerCard from './LawyerCard';
-import { fetchLawyers } from '../Fetch';
+import { fetchLawyers } from "../Fetch"; // Import the fetchLawyers function
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -28,11 +29,20 @@ const Services = () => {
   const [totalPages, setTotalPages] = useState(1); // Manage total pages
   const lawyersPerPage = 20; // Show 20 lawyers per page
 
-  // Fetch lawyers data based on current page
+  // State to store filters
+  const [filters, setFilters] = useState({
+    age: '',
+    profession: '',
+    religion: '',
+    experience: '',
+    nationality: ''
+  });
+
+  // Fetch lawyers data based on current page and filters
   useEffect(() => {
     const loadLawyers = async () => {
       try {
-        const data = await fetchLawyers(currentPage, lawyersPerPage); // Fetch with pagination
+        const data = await fetchLawyers(currentPage, lawyersPerPage, filters); // Fetch with pagination and filters
         setLawyers(data.lawyers); // Assuming the API returns the lawyers in 'data.lawyers'
         setTotalPages(data.totalPages); // Assuming the API returns the total number of pages
         setLoading(false);
@@ -42,8 +52,8 @@ const Services = () => {
       }
     };
 
-    loadLawyers(); // Fetch lawyers when the page changes
-  }, [currentPage]);
+    loadLawyers(); // Fetch lawyers when the page or filters change
+  }, [currentPage, filters]);
 
   // Handle page change (Next/Previous)
   const handleNextPage = () => {
@@ -56,6 +66,12 @@ const Services = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
+  };
+
+  // Handle applying search/filter
+  const handleApplyFilters = (newFilters) => {
+    setFilters(newFilters); // Update filters state
+    setCurrentPage(1); // Reset to first page on search
   };
 
   if (loading) {
@@ -73,7 +89,8 @@ const Services = () => {
         <AppNavBar />
       </Box>
       <Box sx={{ mt: 12 }}>
-        <AdvancedSearch theme={theme} />
+        {/* Pass handleApplyFilters to AdvancedSearch */}
+        <AdvancedSearch theme={theme} onApplyFilters={handleApplyFilters} />
       </Box>
       <Grid container sx={{ marginTop: 5, marginBottom: 10 }}>
         {lawyers.map((lawyer, index) => (

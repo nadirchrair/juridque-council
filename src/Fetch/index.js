@@ -76,36 +76,22 @@ const registerUser = async (fullName, phone, profession, idNumber, state, passwo
 };
 
 
-const AjouterpostImage = (image,id, token) => {
-  return fetch(`${URL}/offers/${id}/images/`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      files: image,
-    })
-  })
-  .then(response => {
-    if (!response.ok) {
-      console.log(response);
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log(data); // Output: { message: "Post Created" }
-    return data;
-  })
-  .catch(error => {
-    console.error(error); // Handle error
-    throw error;
-  });
-}
+const fetchLawyers  = async (page = 1, limit = 20, filters = {}) => {
+  const { age, profession, religion, experience, nationality } = filters;
 
-const fetchLawyers  = async (page = 1, limit = 20) => {
+  // Construct query parameters based on filters
+  const queryParams = new URLSearchParams({
+    page,
+    limit,
+    ...(age && { age }),
+    ...(profession && { profession }),
+    ...(religion && { religion }),
+    ...(experience && { experience }),
+    ...(nationality && { nationality }),
+  }).toString();
+
   try {
-    const response = await fetch(`${URL}/offer?spage=${page}&limit=${limit}`, {
+    const response = await fetch(`http://droit.onrender.com/api/consultantsLawyers?${queryParams}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -145,49 +131,6 @@ const RechercheOffer=async (search)=>{
   }
 }
 
-const TousmesOffre = async (token) => {
-  try {
-    const response = await fetch(`${URL}/offers/me`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': `Bearer ${token}`
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch offers');
-    }
-
-    const data = await response.json();
-    return data; // Return the fetched data
-
-  } catch (error) {
-    throw new Error(error.message); // Rethrow the error to handle it in the component
-  }
-};
-
-const Tousmesphone = async (token) => {
-  try {
-    const response = await fetch(`${URL}/phone-numbers/me`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': `Bearer ${token}`
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch offers');
-    }
-
-    const data = await response.json();
-    return data; // Return the fetched data
-
-  } catch (error) {
-    throw new Error(error.message); // Rethrow the error to handle it in the component
-  }
-};
 
 
 
