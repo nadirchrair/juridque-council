@@ -29,32 +29,52 @@ const registerUser = async (fullName, phone, profession, idNumber, state, passwo
     throw error; // Rethrow to handle the error in the calling function
   }
 };
-const AjoutepostText = (text, token) => {
-  return fetch(`${URL}/offers`, {
+ const AjouteConsultation = (formData) => {
+  return fetch(`${URL}/consultations`, { // Replace with your actual API endpoint
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
     },
-    body: JSON.stringify({
-      name: text,
+    body: JSON.stringify(formData)  // Sending the entire form data object
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to create consultation');
+      }
+      return response.json();
     })
-  })
-  .then(response => {
+    .then(data => {
+      console.log(data);  // Output success message from backend
+      return data;
+    })
+    .catch(error => {
+      console.error('Error during API call:', error); // Handle error
+      throw error;
+    });
+};
+
+ const submitConsultation = async (formData) => {
+  try {
+    const response = await fetch('/api/contact', { // Update to your actual API endpoint
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData), // Send form data
+    });
+
     if (!response.ok) {
-      throw new Error('Failed to create post');
+      throw new Error('Failed to submit form');
     }
-    return response.json();
-  })
-  .then(data => {
-    console.log(data); // Output: { message: "Post Created" }
-    return data;
-  })
-  .catch(error => {
-    console.error(error); // Handle error
-    throw error;
-  });
-}
+
+    const data = await response.json();
+    return data; // Return response data
+  } catch (error) {
+    console.error('Error submitting consultation:', error);
+    throw error; // Re-throw the error to be caught in the component
+  }
+};
+
 
 const AjouterpostImage = (image,id, token) => {
   return fetch(`${URL}/offers/${id}/images/`, {
@@ -83,41 +103,9 @@ const AjouterpostImage = (image,id, token) => {
   });
 }
 
-const Ajouteutlisateur = async (fullname, password, phone) => {
+const fetchLawyers  = async (page = 1, limit = 20) => {
   try {
-    const response = await fetch(`${URL}/auth/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({  
-        fullName: fullname,
-        phoneNumber: phone,
-        password: password,
-      })
-    });
-
-    if (!response.ok) {
-      if (response.status === 409) {
-        throw new Error('A user with that phone number already exists! You should log in!');
-      } else if (response.status === 422) {
-        throw new Error('An account for this phone number was already created for you. You should now create a password for it!');
-      } else {
-        throw new Error('Failed to create user');
-      }
-    }
-
-    const data = await response.json();
-    console.log(data); // Output: { message: "Post Created" }
-  } catch (error) {
-    console.error(error.message); // Handle error
-  }
-};
-// Corrected and completed `TousOffre` function with token handling
-
-const TousOffre = async () => {
-  try {
-    const response = await fetch(`${URL}/offers`, {
+    const response = await fetch(`${URL}/offer?spage=${page}&limit=${limit}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -203,4 +191,4 @@ const Tousmesphone = async (token) => {
 
 
 
-export { registerUser};
+export { registerUser,AjouteConsultation,submitConsultation,fetchLawyers};

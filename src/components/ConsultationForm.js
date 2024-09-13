@@ -4,7 +4,7 @@ import { Container, Box, Typography, Grid, TextField, Button } from '@mui/materi
 import { useNavigate } from 'react-router-dom';
 import AppNavBar from './AppNavBar';
 import Footer1 from './Footer1';
-
+import { AjouteConsultation } from '../Fetch';
 // Theme configuration for MUI components
 const theme = createTheme({
   palette: {
@@ -22,8 +22,7 @@ const theme = createTheme({
 
 const ConsultationForm = () => {
   const navigate = useNavigate();
-  
-  // State to store form data
+    // State to store form data
   const [formData, setFormData] = useState({
     companyName: '',
     contactPerson: '',
@@ -57,40 +56,30 @@ const ConsultationForm = () => {
     setErrors(tempErrors);
     return Object.values(tempErrors).every(x => x === "");
   };
-
+const token = localStorage.getItem('token')
   // Handle changes to form inputs
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();  // Prevent default form submission
-
+  
     if (validate()) {
-      // If validation passes, proceed with form submission
       setLoading(true);  // Set loading state to true
-
+  
+  
       try {
-        // Simulate a backend API call using fetch (replace with your actual API endpoint)
-        const response = await fetch('https://example.com/api/consultation', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),  // Convert form data to JSON string
-        });
-
-        if (!response.ok) {
-          throw new Error('Something went wrong. Please try again later.');
-        }
+        // Call the AjouteConsultation function with formData and token
+        const response = await AjouteConsultation(formData, token);
+  
         // Handle success, display a success message
         setSubmissionMessage('تم إرسال طلبك بنجاح!');
         setLoading(false);  // Reset loading state
         // Redirect to thank you page
         navigate('/thank_you');
-
+  
       } catch (error) {
         console.error('Error during form submission:', error);
         setSubmissionMessage('حدث خطأ أثناء إرسال النموذج. حاول مرة أخرى.');  // Show error message
@@ -159,6 +148,7 @@ const ConsultationForm = () => {
                   variant="outlined"
                   fullWidth
                   id="companyEmail"
+                  type="email"
                   label="البريد الإلكتروني للشركة"
                   name="companyEmail"
                   value={formData.companyEmail}
@@ -170,6 +160,7 @@ const ConsultationForm = () => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                          type="number"
                   variant="outlined"
                   fullWidth
                   id="companyPhone"

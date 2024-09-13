@@ -4,7 +4,7 @@ import { Container, Typography, Grid, TextField, Button, Paper, Box, CssBaseline
 import AppNavBar from './AppNavBar';
 import Footer1 from './Footer1';
 import backgroundImage from '../assets/pic5.jpg'; // Replace with your background image path
-
+import { submitConsultation } from '../Fetch';
 const theme = createTheme({
   palette: {
     primary: {
@@ -44,39 +44,7 @@ const Consultation = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    // Validate form data
-    const errors = validateForm(formData);
-    if (Object.keys(errors).length > 0) {
-      setFormErrors(errors);
-      return;
-    }
-
-    // Send data to backend API
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit form');
-      }
-
-      // Handle success response
-      alert('Your consultation request has been submitted successfully!');
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' }); // Clear form
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('There was an error submitting your request. Please try again later.');
-    }
-  };
+  
 
   // Validate form inputs
   const validateForm = (data) => {
@@ -89,7 +57,27 @@ const Consultation = () => {
     return errors;
   };
 
+ // Handle form submission
+ const handleSubmit = async (event) => {
+  event.preventDefault();
 
+  // Validate form data
+  const errors = validateForm(formData);
+  if (Object.keys(errors).length > 0) {
+    setFormErrors(errors);
+    return;
+  }
+
+  // Send data to backend API
+  try {
+    const response = await submitConsultation(formData); // Use the imported function
+    alert('Your consultation request has been submitted successfully!');
+    setFormData({ name: '', email: '', phone: '', subject: '', message: '' }); // Clear form
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    alert('There was an error submitting your request. Please try again later.');
+  }
+};
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

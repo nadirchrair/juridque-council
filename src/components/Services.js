@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppNavBar from './AppNavBar';
 import Footer1 from './Footer1';
-import { Box, CssBaseline ,Grid} from '@mui/material';
+import { Box, CssBaseline, Grid, Button } from '@mui/material';
 import AdvancedSearch from './AdvancedSearch';
 import LawyerCard from './LawyerCard';
-
+import { fetchLawyers } from '../Fetch';
 const theme = createTheme({
   palette: {
     primary: {
@@ -21,88 +21,91 @@ const theme = createTheme({
 });
 
 const Services = () => {
-  const lawyers = [
-    {
-      name: 'John Doe',
-      title: 'Attorney at Law',
-      wilaya: 'Algiers',
-      licenseNumber: '123456789',
-      phone: '+213 123 456 789',
-      email: 'john.doe@example.com',
-      address: '1234 Lawyer St, Algiers, Algeria',
-      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-      name: 'Jane Smith',
-      title: 'Attorney at Law',
-      wilaya: 'Oran',
-      licenseNumber: '987654321',
-      phone: '+213 987 654 321',
-      email: 'jane.smith@example.com',
-      address: '5678 Lawyer Ave, Oran, Algeria',
-      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    // Add 4 more lawyers with the same structure
-    {
-      name: 'Ahmed Ali',
-      title: 'Attorney at Law',
-      wilaya: 'Constantine',
-      licenseNumber: '111213141',
-      phone: '+213 111 213 141',
-      email: 'ahmed.ali@example.com',
-      address: '9101 Lawyer Rd, Constantine, Algeria',
-      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-      name: 'Fatima Zahra',
-      title: 'Attorney at Law',
-      wilaya: 'Annaba',
-      licenseNumber: '515161718',
-      phone: '+213 515 161 718',
-      email: 'fatima.zahra@example.com',
-      address: '1234 Lawyer St, Annaba, Algeria',
-      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-      name: 'Omar Ibn Khattab',
-      title: 'Attorney at Law',
-      wilaya: 'Blida',
-      licenseNumber: '919293949',
-      phone: '+213 919 293 949',
-      email: 'omar.khattab@example.com',
-      address: '5678 Lawyer Ave, Blida, Algeria',
-      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-      name: 'Khadija Bint Khuwaylid',
-      title: 'Attorney at Law',
-      wilaya: 'Tlemcen',
-      licenseNumber: '010203040',
-      phone: '+213 010 203 040',
-      email: 'khadija.khuwaylid@example.com',
-      address: '9101 Lawyer Rd, Tlemcen, Algeria',
-      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    }
-  ];
-  return (
-    <ThemeProvider theme ={theme}>
-         <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-       <AppNavBar/>
-      </Box>
-      <Box sx={{mt:12}}>
-      <AdvancedSearch theme={theme}/>
-      </Box>
-      <Grid container  sx={{ marginTop: 5,marginBottom:10 }}>
-          {lawyers.map((lawyer, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index} sx={{pb:2,       }}>
-              <LawyerCard {...lawyer}  />
-            </Grid>
-          ))}
-        </Grid>
-        <Footer1/>
-    </ThemeProvider>
-  )
-}
+  const [lawyers, setLawyers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1); // Manage current page
+  const [totalPages, setTotalPages] = useState(1); // Manage total pages
+  const lawyersPerPage = 20; // Show 20 lawyers per page
 
-export default Services
+  // Fetch lawyers data based on current page
+  useEffect(() => {
+    const loadLawyers = async () => {
+      try {
+        const data = await fetchLawyers(currentPage, lawyersPerPage); // Fetch with pagination
+        setLawyers(data.lawyers); // Assuming the API returns the lawyers in 'data.lawyers'
+        setTotalPages(data.totalPages); // Assuming the API returns the total number of pages
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to load lawyers');
+        setLoading(false);
+      }
+    };
+
+    loadLawyers(); // Fetch lawyers when the page changes
+  }, [currentPage]);
+
+  // Handle page change (Next/Previous)
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>; // Show loading while fetching
+  }
+
+  if (error) {
+    return <div>{error}</div>; // Show error if fetching fails
+  }
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppNavBar />
+      </Box>
+      <Box sx={{ mt: 12 }}>
+        <AdvancedSearch theme={theme} />
+      </Box>
+      <Grid container sx={{ marginTop: 5, marginBottom: 10 }}>
+        {lawyers.map((lawyer, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index} sx={{ pb: 2 }}>
+            <LawyerCard {...lawyer} />
+          </Grid>
+        ))}
+      </Grid>
+
+      {/* Pagination Controls */}
+      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
+        <Button 
+          onClick={handlePrevPage} 
+          disabled={currentPage === 1} 
+          variant="contained"
+          sx={{ mx: 2 }}
+        >
+          Previous
+        </Button>
+        <Button 
+          onClick={handleNextPage} 
+          disabled={currentPage === totalPages} 
+          variant="contained"
+          sx={{ mx: 2 }}
+        >
+          Next
+        </Button>
+      </Box>
+
+      <Footer1 />
+    </ThemeProvider>
+  );
+};
+
+export default Services;
