@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 // Thunk for login
 export const loginUser = createAsyncThunk('auth/loginUser', async (loginData, { rejectWithValue }) => {
   try {
-    const response = await fetch('http://localhost:3001/auth/signin', {
+    const response = await fetch('http://droit.onrender.com/api/auth/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

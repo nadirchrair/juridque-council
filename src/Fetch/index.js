@@ -2,7 +2,7 @@ import { URL } from "../constants/Constants";
 // External function for handling the registration API request
 const registerUser = async (fullName, phone, profession, idNumber, state, password) => {
   try {
-    const response = await fetch(`${URL}/api/register`, {
+    const response = await fetch(`${URL}/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ const registerUser = async (fullName, phone, profession, idNumber, state, passwo
   }
 };
  const AjouteConsultation = (formData) => {
-  return fetch(`${URL}/consultations`, { // Replace with your actual API endpoint
+  return fetch(`${URL}/consultation/`, { // Replace with your actual API endpoint
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ const registerUser = async (fullName, phone, profession, idNumber, state, passwo
 
  const submitConsultation = async (formData) => {
   try {
-    const response = await fetch('/api/contact', { // Update to your actual API endpoint
+    const response = await fetch(`${URL}/DataInserted/judicialCouncil`, { // Update to your actual API endpoint
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
