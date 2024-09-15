@@ -29,29 +29,28 @@ const registerUser = async (fullName, phone, profession, idNumber, state, passwo
     throw error; // Rethrow to handle the error in the calling function
   }
 };
-const AjouteConsultation = (formData) => {
-  return fetch(`${URL}/consultation/`, { // Replace with your actual API endpoint
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData)  // Sending the entire form data object
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to create consultation');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);  // Output success message from backend
-      return data;
-    })
-    .catch(error => {
-      console.error('Error during API call:', error); // Handle error
-      throw error;
+const AjouteConsultation = async (formData) => {
+  try {
+    const response = await fetch(`${URL}/company/`, { 
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData), // Send form data
     });
+
+    if (!response.ok) {
+      throw new Error('Failed to submit form');
+    }
+
+    const data = await response.json();
+    return data; // Return response data
+  } catch (error) {
+    console.error('Error submitting consultation:', error);
+    throw error; // Re-throw the error to be caught in the component
+  }
 };
+
 
 const submitConsultation = async (formData) => {
   try {

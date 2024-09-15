@@ -24,19 +24,19 @@ const ConsultationForm = () => {
   const navigate = useNavigate();
     // State to store form data
   const [formData, setFormData] = useState({
-    companyName: '',
-    contactPerson: '',
-    companyEmail: '',
-    companyPhone: '',
+    name: '',
+    firstPersonName: '',
+    email: '',
+    numberPhone: '',
     message: '',
   });
 
   // State to store validation errors
   const [errors, setErrors] = useState({
-    companyName: '',
-    contactPerson: '',
-    companyEmail: '',
-    companyPhone: '',
+    name: '',
+    firstPersonName: '',
+    email: '',
+    numberPhone: '',
     message: '',
   });
 
@@ -44,19 +44,18 @@ const ConsultationForm = () => {
   const [loading, setLoading] = useState(false);
 
   // State to manage submission success or failure
-  const [submissionMessage, setSubmissionMessage] = useState('');
+  const [submissionmessage, setSubmissionmessage] = useState('');
 
   // Validation function to check form fields
   const validate = () => {
     let tempErrors = {};
-    tempErrors.companyName = formData.companyName ? "" : "اسم الشركة مطلوب";
-    tempErrors.contactPerson = formData.contactPerson ? "" : "اسم الشخص المسؤول مطلوب";
-    tempErrors.companyEmail = formData.companyEmail ? "" : "البريد الإلكتروني مطلوب";
-    tempErrors.companyPhone = formData.companyPhone ? "" : "رقم هاتف الشركة مطلوب";
+    tempErrors.name = formData.name ? "" : "اسم الشركة مطلوب";
+    tempErrors.firstPersonName = formData.firstPersonName ? "" : "اسم الشخص المسؤول مطلوب";
+    tempErrors.email = formData.email ? "" : "البريد الإلكتروني مطلوب";
+    tempErrors.numberPhone = formData.numberPhone ? "" : "رقم هاتف الشركة مطلوب";
     setErrors(tempErrors);
     return Object.values(tempErrors).every(x => x === "");
   };
-const token = localStorage.getItem('token')
   // Handle changes to form inputs
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -72,17 +71,17 @@ const token = localStorage.getItem('token')
   
       try {
         // Call the AjouteConsultation function with formData and token
-        const response = await AjouteConsultation(formData, token);
+        const response = await AjouteConsultation(formData);
   
         // Handle success, display a success message
-        setSubmissionMessage('تم إرسال طلبك بنجاح!');
+        setSubmissionmessage('تم إرسال طلبك بنجاح!');
         setLoading(false);  // Reset loading state
         // Redirect to thank you page
-        navigate('/thank_you');
+        alert("succes");
   
       } catch (error) {
         console.error('Error during form submission:', error);
-        setSubmissionMessage('حدث خطأ أثناء إرسال النموذج. حاول مرة أخرى.');  // Show error message
+        setSubmissionmessage('حدث خطأ أثناء إرسال النموذج. حاول مرة أخرى.');  // Show error message
         setLoading(false);  // Reset loading state
       }
     } else {
@@ -121,11 +120,11 @@ const token = localStorage.getItem('token')
                   fullWidth
                   id="companyName"
                   label="اسم الشركة"
-                  name="companyName"
-                  value={formData.companyName}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
-                  error={!!errors.companyName}
-                  helperText={errors.companyName || "يرجى إدخال الاسم الرسمي للشركة"}
+                  error={!!errors.name}
+                  helperText={errors.name || "يرجى إدخال الاسم الرسمي للشركة"}
                   required
                 />
               </Grid>
@@ -133,13 +132,13 @@ const token = localStorage.getItem('token')
                 <TextField
                   variant="outlined"
                   fullWidth
-                  id="contactPerson"
+                  id="firstPersonName"
                   label="اسم الشخص المسؤول"
-                  name="contactPerson"
-                  value={formData.contactPerson}
+                  name="firstPersonName"
+                  value={formData.firstPersonName}
                   onChange={handleChange}
-                  error={!!errors.contactPerson}
-                  helperText={errors.contactPerson || "يرجى إدخال الاسم الكامل للشخص المسؤول"}
+                  error={!!errors.firstPersonName}
+                  helperText={errors.firstPersonName || "يرجى إدخال الاسم الكامل للشخص المسؤول"}
                   required
                 />
               </Grid>
@@ -147,14 +146,14 @@ const token = localStorage.getItem('token')
                 <TextField
                   variant="outlined"
                   fullWidth
-                  id="companyEmail"
+                  id="email"
                   type="email"
                   label="البريد الإلكتروني للشركة"
-                  name="companyEmail"
-                  value={formData.companyEmail}
+                  name="email"
+                  value={formData.email}
                   onChange={handleChange}
-                  error={!!errors.companyEmail}
-                  helperText={errors.companyEmail || "يرجى إدخال البريد الإلكتروني الرسمي للشركة"}
+                  error={!!errors.email}
+                  helperText={errors.email || "يرجى إدخال البريد الإلكتروني الرسمي للشركة"}
                   required
                 />
               </Grid>
@@ -163,13 +162,13 @@ const token = localStorage.getItem('token')
                           type="number"
                   variant="outlined"
                   fullWidth
-                  id="companyPhone"
+                  id="numberPhone"
                   label="رقم هاتف الشركة"
-                  name="companyPhone"
-                  value={formData.companyPhone}
+                  name="numberPhone"
+                  value={formData.numberPhone}
                   onChange={handleChange}
-                  error={!!errors.companyPhone}
-                  helperText={errors.companyPhone || "يرجى إدخال رقم هاتف الشركة"}
+                  error={!!errors.numberPhone}
+                  helperText={errors.numberPhone || "يرجى إدخال رقم هاتف الشركة"}
                   required
                 />
               </Grid>
@@ -206,9 +205,9 @@ const token = localStorage.getItem('token')
               {loading ? 'جارٍ الإرسال...' : 'إرسال'}
             </Button>
           </Box>
-          {submissionMessage && (
+          {submissionmessage && (
             <Typography variant="body2" color="error" align="center" sx={{ mt: 2 }}>
-              {submissionMessage}
+              {submissionmessage}
             </Typography>
           )}
         </Box>
