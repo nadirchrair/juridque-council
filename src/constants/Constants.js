@@ -1,2 +1,2 @@
 export const jsonPlaceholderData = "https://fakestoreapi.com";
-export const URL = "http://droit.onrender.com/api";
+export const URL = "https://droit.onrender.com/api";

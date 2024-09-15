@@ -29,7 +29,7 @@ const registerUser = async (fullName, phone, profession, idNumber, state, passwo
     throw error; // Rethrow to handle the error in the calling function
   }
 };
- const AjouteConsultation = (formData) => {
+const AjouteConsultation = (formData) => {
   return fetch(`${URL}/consultation/`, { // Replace with your actual API endpoint
     method: 'POST',
     headers: {
@@ -53,9 +53,9 @@ const registerUser = async (fullName, phone, profession, idNumber, state, passwo
     });
 };
 
- const submitConsultation = async (formData) => {
+const submitConsultation = async (formData) => {
   try {
-    const response = await fetch(`${URL}/DataInserted/judicialCouncil`, { // Update to your actual API endpoint
+    const response = await fetch(`${URL}/consultation/`, { // Update to your actual API endpoint
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -110,6 +110,7 @@ const fetchLawyers  = async (page = 1, limit = 20, filters = {}) => {
   }
 };
 
+
 const RechercheOffer=async (search)=>{
   try {
     const response = await fetch(`${URL}/offers?filterOn=description&filterQuery=${search}`, {
@@ -130,8 +131,6 @@ const RechercheOffer=async (search)=>{
     throw new Error(error.message); // Rethrow the error to handle it in the component
   }
 }
-
-
 
 
 export { registerUser,AjouteConsultation,submitConsultation,fetchLawyers};

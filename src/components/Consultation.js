@@ -30,8 +30,8 @@ const Consultation = () => {
    const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
-    subject: '',
+    numberPhone: '',
+    contentName: '',
     message: ''
   });
 
@@ -51,8 +51,8 @@ const Consultation = () => {
     const errors = {};
     if (!data.name) errors.name = 'Name is required';
     if (!data.email) errors.email = 'Email is required';
-    if (!data.phone) errors.phone = 'Phone number is required';
-    if (!data.subject) errors.subject = 'Subject is required';
+    if (!data.numberPhone) errors.numberPhone = 'numberPhone number is required';
+    if (!data.contentName) errors.contentName = 'contentName is required';
     if (!data.message) errors.message = 'Message is required';
     return errors;
   };
@@ -72,7 +72,7 @@ const Consultation = () => {
   try {
     const response = await submitConsultation(formData); // Use the imported function
     alert('Your consultation request has been submitted successfully!');
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' }); // Clear form
+    setFormData({ name: '', email: '', numberPhone: '', contentName: '', message: '' }); // Clear form
   } catch (error) {
     console.error('Error submitting form:', error);
     alert('There was an error submitting your request. Please try again later.');
@@ -196,27 +196,27 @@ const Consultation = () => {
                 <TextField
                   fullWidth
                   label="رقم الهاتف"
-                  name="phone"
+                  name="numberPhone"
                   type="tel"
                   variant="outlined"
                   required
-                  value={formData.phone}
+                  value={formData.numberPhone}
                   onChange={handleInputChange}
-                  error={!!formErrors.phone}
-                  helperText={formErrors.phone}
+                  error={!!formErrors.numberPhone}
+                  helperText={formErrors.numberPhone}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="موضوع الاستشارة"
-                  name="subject"
+                  name="contentName"
                   variant="outlined"
                   required
-                  value={formData.subject}
+                  value={formData.contentName}
                   onChange={handleInputChange}
-                  error={!!formErrors.subject}
-                  helperText={formErrors.subject}
+                  error={!!formErrors.contentName}
+                  helperText={formErrors.contentName}
                 />
               </Grid>
               <Grid item xs={12}>
