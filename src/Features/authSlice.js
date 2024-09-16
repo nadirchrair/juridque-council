@@ -50,9 +50,9 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.token = action.payload.access_token; // Assuming token is in action.payload.access_token
+        state.token = action.payload.token; // Assuming token is in action.payload.access_token
         // state.user = action.payload.user;
-        localStorage.setItem('token', action.payload.access_token); // Save token to local storage
+        localStorage.setItem('token', action.payload.token); // Save token to local storage
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;

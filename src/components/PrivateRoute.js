@@ -7,6 +7,7 @@ export default function PrivateRoute({ children }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let token = useSelector((state) => state.auth.token);
+  
 
   useEffect(() => {
     if (!token) {

@@ -41,41 +41,33 @@ export const appRouter = createBrowserRouter([
       {
         path: "",
         element: (
-      //    <PrivateRoute>
+          <PrivateRoute>
             <Admindash />
-        //  </PrivateRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: "المستندات",
         element: (
-       //   <PrivateRoute>
+          <PrivateRoute>
             <Datafiles />
-         // </PrivateRoute>
-        ),
-      },
-      {
-        path: "كتابة مقال",
-        element: (
-       //   <PrivateRoute>
-            <AddBlog />
-         // </PrivateRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: "الاستشارات",
         element: (
-       //   <PrivateRoute>
+          <PrivateRoute>
             <ConsultationTable />
-         // </PrivateRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: "انضم لنا",
         element: (
-       //   <PrivateRoute>
+          <PrivateRoute>
             <JoinUs2 />
-         // </PrivateRoute>
+          </PrivateRoute>
         ),
       },
      ],

@@ -88,7 +88,7 @@ export default function TemporaryDrawer({ status, setStatus }) {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {["المستندات", "كتابة مقال", "الاستشارات", "انضم لنا","تسجيل الخروج"].map(
+        {["المستندات", "الاستشارات", "انضم لنا","تسجيل الخروج"].map(
           (text, index) => (
             <ListItem key={text} onClick={() => navigate(`/admin/${text}`)} disablePadding>
               <ListItemButton >

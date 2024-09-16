@@ -60,15 +60,15 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const phoneNumber = data.get('phoneNumber');
+    const numberPhone = data.get('numberPhone');
     const password = data.get('password');
 
-    dispatch(loginUser({ phoneNumber, password }))
+    dispatch(loginUser({ numberPhone, password }))
       .then(() => {
         setShowAlert(true); // Show the alert on successful submission
         setTimeout(() => {
           setShowAlert(false); // Hide the alert after a delay
-          navigate('/');
+          navigate('/admin');
         }, 3000); // Adjust the delay as needed
       })
       .catch((err) => setErr(err.message));
@@ -95,9 +95,9 @@ export default function Login() {
                 margin='normal'
                 required
                 fullWidth
-                id='phoneNumber'
+                id='numberPhone'
                 label='رقم الهاتف'
-                name='phoneNumber'
+                name='numberPhone'
                 autoComplete='phone'
                 autoFocus
               />
