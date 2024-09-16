@@ -89,10 +89,6 @@ export const appRouter = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "register",
-    element: <Register />,
-  },
-  {
     path: "/",
     element: <Principle />,
   },

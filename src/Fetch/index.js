@@ -1,34 +1,5 @@
 import { URL } from "../constants/Constants";
-// External function for handling the registration API request
-const registerUser = async (fullName, phone, profession, idNumber, state, password) => {
-  try {
-    const response = await fetch(`${URL}/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        fullName,
-        phone,
-        profession,
-        idNumber,
-        state,
-        password,
-      }),
-    });
 
-    if (!response.ok) {
-      throw new Error('Failed to register user');
-    }
-
-    const data = await response.json();
-    console.log(data); // Output success message or additional data
-    return data;
-  } catch (error) {
-    console.error('Error during registration:', error);
-    throw error; // Rethrow to handle the error in the calling function
-  }
-};
 const AjouteConsultation = async (formData) => {
   try {
     const response = await fetch(`${URL}/company/`, { 
@@ -131,5 +102,95 @@ const RechercheOffer=async (search)=>{
   }
 }
 
+// api.js
+const userData ={
+  firstName:"chemso",
+  lastName:"zouga",
+  professionalCardNumber:"260920022609",
+  judicialCouncil:"66e86cabfb15e0b300389130",
+  role:"66e07efe3aa80523bc978ef9",
+  numberPhone:"2139890644540",
+  email:"nadir1234@gmail.com",
+  password:"nadir2002"
+}
 
-export { registerUser,AjouteConsultation,submitConsultation,fetchLawyers};
+// Function to register a user
+const registerUser = async (
+  firstName,
+  lastName,
+  professionalCardNumber,
+  judicialCouncil, // This should be the ID
+  role,            // This should also be the ID
+  numberPhone,
+  email,
+  password
+) => {
+  try {
+    const response = await fetch("https://droit.onrender.com/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        professionalCardNumber,
+        judicialCouncil, // Send as ID
+        role,            // Send as ID
+        numberPhone,
+        email,
+        password
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Server Error:", errorData);
+      throw new Error("Failed to register user");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error in registerUser:", error);
+    throw error;
+  }
+};
+
+// Function to fetch judicial council data
+const fetchJudicialCouncil = async () => {
+  try {
+    const response = await fetch(`${URL}/DataInserted/judicialCouncil`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },}); // Adjust the endpoint as needed
+    if (!response.ok) {
+      throw new Error("Failed to fetch judicial council data");
+    }
+    return await response.json(); // Assuming the API returns JSON data
+  } catch (error) {
+    console.error("Error fetching judicial council data:", error);
+    throw error;
+  }
+};
+
+// Function to fetch available roles
+const fetchRoles = async () => {
+  try {
+    const response = await fetch(`${URL}/DataInserted/Role`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },}); // Adjust the endpoint as needed
+    if (!response.ok) {
+      throw new Error("Failed to fetch roles data");
+    }
+    return await response.json(); // Assuming the API returns JSON data
+  } catch (error) {
+    console.error("Error fetching roles data:", error);
+    throw error;
+  }
+};
+
+
+export { registerUser,AjouteConsultation,submitConsultation,fetchLawyers,fetchJudicialCouncil,fetchRoles};

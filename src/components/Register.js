@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -19,7 +19,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
-import { registerUser } from "../Fetch";
+import { registerUser, fetchJudicialCouncil, fetchRoles } from "../Fetch"; // Assuming you have these API functions
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -48,46 +49,80 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [profession, setProfession] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [numberPhone, setnumberPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [idNumber, setIdNumber] = useState("");
+  const [professionalCardNumber, setprofessionalCardNumber] = useState("");
   const [state, setState] = useState("");
+  const [judicialCouncil, setJudicialCouncil] = useState("");
+  const [role, setRole] = useState("");
+  const [judicialCouncilOptions, setJudicialCouncilOptions] = useState([]);
+  const [roleOptions, setRoleOptions] = useState([]);
+
+  useEffect(() => {
+    // Fetch data for judicial councils and roles
+    const loadData = async () => {
+      try {
+        const judicialCouncilData = await fetchJudicialCouncil();
+        setJudicialCouncilOptions(judicialCouncilData);
+        
+        const roleData = await fetchRoles();
+        setRoleOptions(roleData);
+      } catch (error) {
+        console.error("Error fetching data", error);
+        setErr("حدث خطأ أثناء تحميل البيانات.");
+      }
+    };
+
+    loadData();
+  }, []);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
   const handleRegister = async () => {
     try {
-      // Call the external registration function
-      await registerUser(fullName, phone, profession, idNumber, state, password);
+      // Call the external registration function with the form inputs
+      await registerUser(
+        firstName,
+        lastName,
+        professionalCardNumber,
+        judicialCouncil,  // Pass the selected judicialCouncil ID
+        role,             // Pass the selected role ID
+        numberPhone,
+        email,
+        password
+      );
   
-      // If successful, show the alert and navigate to the login page
+      // Show success alert and redirect to login after 3 seconds
       setShowAlert(true);
       setTimeout(() => {
         setShowAlert(false);
         navigate('/login');
       }, 3000);
     } catch (error) {
-      console.error(error);
+      console.error("Registration Error:", error);
       setErr("حدث خطأ أثناء إنشاء الحساب. حاول مرة أخرى.");
     }
   };
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
-  
-    if (phone.length >= 1 && password.length >= 1 && confirmPassword.length >= 1 &&
-        password === confirmPassword && fullName.length >= 1 &&
-        profession.length >= 1 && state.length >= 1) {
+
+    if (numberPhone.length >= 1 && password.length >= 1 && confirmPassword.length >= 1 &&
+        password === confirmPassword && firstName.length >= 1 &&
+        lastName.length >= 1 && email.length >= 1 && 
+        profession.length >= 1 && state.length >= 1 && judicialCouncil && role) {
       handleRegister();  // Call the function to handle registration
     } else {
       setErr("يرجى إدخال معلومات صحيحة.");
     }
   };
+
   const Login = (event) => {
     event.preventDefault();
     navigate("/login");
@@ -97,7 +132,7 @@ export default function Register() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         {showAlert && (
-          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success"  sx={{mt:'20px'}}>
+          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" sx={{ mt: '20px' }}>
             تم إنشاء الحساب بنجاح. سيتم تأكيد الحساب وتفعيله بعد تأكيد معلوماتك من الفريق. سيتم التواصل معك عبر رقم هاتفك أو البريد الإلكتروني خلال أيام.
           </Alert>
         )}
@@ -113,24 +148,42 @@ export default function Register() {
               margin="normal"
               required
               fullWidth
-              id="fullname"
-              label="الاسم الكامل"
-              name="fullname"
-              autoComplete="fullname"
-              autoFocus
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              id="firstName"
+              label="الاسم الأول"
+              name="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              id="Phone"
+              id="lastName"
+              label="اسم العائلة"
+              name="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="البريد الإلكتروني"
+              name="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="numberPhone"
               label="رقم الهاتف"
-              name="Phone"
-              autoComplete="phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              name="numberPhone"
+              value={numberPhone}
+              onChange={(e) => setnumberPhone(e.target.value)}
             />
             <FormControl fullWidth required margin="normal">
               <InputLabel id="profession-label">المهنة</InputLabel>
@@ -150,12 +203,12 @@ export default function Register() {
                 margin="normal"
                 required
                 fullWidth
-                id="idNumber"
+                id="professionalCardNumber"
                 label={`رقم البطاقة المهنية (${profession})`}
-                name="idNumber"
+                name="professionalCardNumber"
                 type="number"
-                value={idNumber}
-                onChange={(e) => setIdNumber(e.target.value)}
+                value={professionalCardNumber}
+                onChange={(e) => setprofessionalCardNumber(e.target.value)}
               />
             )}
             <TextField
@@ -168,13 +221,43 @@ export default function Register() {
               value={state}
               onChange={(e) => setState(e.target.value)}
             />
-            <FormControl sx={{ mt: 2, width: '100%' }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">كلمة المرور</InputLabel>
+            <FormControl fullWidth required margin="normal">
+              <InputLabel id="judicialCouncil-label">المجلس القضائي</InputLabel>
+              <Select
+                labelId="judicialCouncil-label"
+                id="judicialCouncil"
+                value={judicialCouncil}
+                label="المجلس القضائي"
+                onChange={(e) => setJudicialCouncil(e.target.value)}
+              >
+                {judicialCouncilOptions.map((option) => (
+                  <MenuItem key={option._id} value={option._id}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth required margin="normal">
+              <InputLabel id="role-label">الدور</InputLabel>
+              <Select
+                labelId="role-label"
+                id="role"
+                value={role}
+                label="الدور"
+                onChange={(e) => setRole(e.target.value)}
+              >
+                {roleOptions.map((option) => (
+                  <MenuItem key={option.id} value={option._id}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth required margin="normal">
+              <InputLabel htmlFor="password">كلمة المرور</InputLabel>
               <OutlinedInput
-                id="outlined-adornment-password"
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                autoComplete="current-password"
+                id="password"
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 endAdornment={
@@ -192,41 +275,50 @@ export default function Register() {
                 label="كلمة المرور"
               />
             </FormControl>
-            <FormControl sx={{ mt: 2, width: '100%' }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">تأكيد كلمة المرور</InputLabel>
+            <FormControl fullWidth required margin="normal">
+              <InputLabel htmlFor="confirm-password">تأكيد كلمة المرور</InputLabel>
               <OutlinedInput
-  id="outlined-adornment-password"
-  type={showPassword ? 'text' : 'password'}
-  name="cpassword"
-  value={confirmPassword}
-  onChange={(e) => setConfirmPassword(e.target.value)}
-  endAdornment={
-    <InputAdornment position="end"> {/* Change "start" to "end" */}
-      <IconButton
-        aria-label="toggle password visibility"
-        onClick={handleClickShowPassword}
-        onMouseDown={handleMouseDownPassword}
-        edge="end"
-      >
-        {showPassword ? <VisibilityOff /> : <Visibility />}
-      </IconButton>
-    </InputAdornment>
-  }
-  label="تأكيد كلمة المرور"
-/>
+                id="confirm-password"
+                type={showPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="تأكيد كلمة المرور"
+              />
             </FormControl>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, bgcolor: 'primary.main' }}>
-              تسجيل
-            </Button>
-            <Typography align="center" sx={{ mt: 2 }}>
-              <a href="#" onClick={Login} role="button" tabIndex="0" style={{ color: "rgb(15, 64, 61)" }}>
-                إذا كان لديك حساب، قم بتسجيل الدخول
-              </a>
+            <Typography variant="body2" color="error" align="center" sx={{ mt: 2 }}>
+              {err}
             </Typography>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              تسجيل حساب
+            </Button>
+            <Button
+              onClick={Login}
+              fullWidth
+              variant="outlined"
+              sx={{ mt: 1, mb: 2 }}
+            >
+              لديك حساب؟ سجل الدخول
+            </Button>
           </Box>
-          {err && <Typography color="error" sx={{ mt: 2 }}>{err}</Typography>}
         </Box>
-        <Copyright sx={{ mt: 4, mb: 2 }} />
+        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );
