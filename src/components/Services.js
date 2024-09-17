@@ -30,21 +30,22 @@ const Services = () => {
   const lawyersPerPage = 20; // Show 20 lawyers per page
 
   // State to store filters
+  {/**
   const [filters, setFilters] = useState({
     age: '',
     profession: '',
     religion: '',
     experience: '',
     nationality: ''
-  });
+  }); */}
 
   // Fetch lawyers data based on current page and filters
   useEffect(() => {
     const loadLawyers = async () => {
       try {
-        const data = await fetchLawyers(currentPage, lawyersPerPage, filters); // Fetch with pagination and filters
-        setLawyers(data.lawyers); // Assuming the API returns the lawyers in 'data.lawyers'
-        setTotalPages(data.totalPages); // Assuming the API returns the total number of pages
+        const data = await fetchLawyers(); // Fetch with pagination and filters
+        setLawyers(data.data); // Assuming the API returns the lawyers in 'data.lawyers'
+       // setTotalPages(data.totalPages); // Assuming the API returns the total number of pages
         setLoading(false);
       } catch (err) {
         setError('Failed to load lawyers');
@@ -53,7 +54,7 @@ const Services = () => {
     };
 
     loadLawyers(); // Fetch lawyers when the page or filters change
-  }, [currentPage, filters]);
+  }, []);//currentPage, filters]);
 
   // Handle page change (Next/Previous)
   const handleNextPage = () => {
@@ -68,11 +69,7 @@ const Services = () => {
     }
   };
 
-  // Handle applying search/filter
-  const handleApplyFilters = (newFilters) => {
-    setFilters(newFilters); // Update filters state
-    setCurrentPage(1); // Reset to first page on search
-  };
+  
 
   if (loading) {
     return <div>Loading...</div>; // Show loading while fetching
@@ -90,7 +87,7 @@ const Services = () => {
       </Box>
       <Box sx={{ mt: 12 }}>
         {/* Pass handleApplyFilters to AdvancedSearch */}
-        <AdvancedSearch theme={theme} onApplyFilters={handleApplyFilters} />
+        <AdvancedSearch theme={theme}  />
       </Box>
       <Grid container sx={{ marginTop: 5, marginBottom: 10 }}>
         {lawyers.map((lawyer, index) => (

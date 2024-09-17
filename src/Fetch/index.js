@@ -45,31 +45,28 @@ const submitConsultation = async (formData) => {
   }
 };
 
-
-const fetchLawyers  = async (page = 1, limit = 20, filters = {}) => {
-  const { age, profession, religion, experience, nationality } = filters;
+const fetchLawyers = async (filters = {}) => {
+  const { age, profession, religion, experience, nationality, searchTerm } = filters;
 
   // Construct query parameters based on filters
   const queryParams = new URLSearchParams({
-    page,
-    limit,
     ...(age && { age }),
     ...(profession && { profession }),
     ...(religion && { religion }),
     ...(experience && { experience }),
     ...(nationality && { nationality }),
+    ...(searchTerm && { searchTerm }), // Include search term if provided
   }).toString();
 
   try {
-    const response = await fetch(`http://droit.onrender.com/api/consultantsLawyers?${queryParams}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const response = await fetch(`http://droit.onrender.com/api/consultantsLawyers/NotAuth`, {
+      method: 'GET', // POST method for sending pagination in body
+     
+   //   body: JSON.stringify({ page, limit }), // Send page and limit in body
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch offers');
+      throw new Error('Failed to fetch lawyers');
     }
 
     const data = await response.json();
@@ -79,6 +76,7 @@ const fetchLawyers  = async (page = 1, limit = 20, filters = {}) => {
     throw new Error(error.message); // Rethrow the error to handle it in the component
   }
 };
+
 
 
 const RechercheOffer=async (search)=>{
@@ -102,17 +100,7 @@ const RechercheOffer=async (search)=>{
   }
 }
 
-// api.js
-const userData ={
-  firstName:"chemso",
-  lastName:"zouga",
-  professionalCardNumber:"260920022609",
-  judicialCouncil:"66e86cabfb15e0b300389130",
-  role:"66e07efe3aa80523bc978ef9",
-  numberPhone:"2139890644540",
-  email:"nadir1234@gmail.com",
-  password:"nadir2002"
-}
+
 
 // Function to register a user
 const registerUser = async (

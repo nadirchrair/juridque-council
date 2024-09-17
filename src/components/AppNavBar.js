@@ -17,7 +17,7 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../Features/authSlice';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import logoesaj from '../assets/logoesaj.jpg';
 const drawerWidth = 240;
 
 const AppNavBar = () => {
@@ -87,9 +87,11 @@ const handleDrawerToggle = () => {
     <>
       <AppBar component="nav" sx={{ backgroundColor: '#ffff', borderBottom: `1px solid ${theme.palette.primary.main}`, boxShadow: 'none' }}>
           <Toolbar sx={{ justifyContent: 'space-between'}}>
-            <Typography variant="h6" component="div" color="primary" sx={{marginRight:'115px'}}>
-              Platforme
-            </Typography>
+          <img 
+    src={logoesaj} // Replace with your actual logo path
+    alt="Platform Logo" 
+    style={{ marginRight: '115px', height: '50px' }} // Adjust styles accordingly
+  />
             <Box sx={{ 
               display: { xs: 'none', sm: 'flex' }, 
               alignItems: 'center', 

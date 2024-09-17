@@ -23,7 +23,7 @@ const SubtitleTypography = styled(Typography)(({ theme }) => ({
   fontFamily: 'Georgia, serif',
 }));
 
-const LawyerCard = ({ name, title, wilaya, licenseNumber, phone, email, address, profilePicture, firmLogo }) => {
+const LawyerCard = ({ firstName, lastName, role, professionalCardNumber, numberPhone, email, judicialCouncil, profilePicture, firmLogo }) => {
   return (
     <LawyerCardContainer>
       <CardContent>
@@ -33,29 +33,29 @@ const LawyerCard = ({ name, title, wilaya, licenseNumber, phone, email, address,
           </Grid>
           <Grid item xs={8}>
             <Typography variant="h6" component="div">
-              {name}
+              {firstName}
             </Typography>
             <SubtitleTypography variant="subtitle1" color="text.secondary">
-              {title}
+              {lastName}
             </SubtitleTypography>
             <Typography variant="body2" color="text.secondary">
-              {wilaya}
+              {role}
             </Typography>
             <CustomTypography variant="body2">
-              رقم الترخيص: {licenseNumber}
+              رقم الترخيص: {professionalCardNumber}
             </CustomTypography>
           </Grid>
         </Grid>
       </CardContent>
       <Box sx={{ padding: '0 16px' }}>
         <CustomTypography variant="body2">
-          الهاتف: {phone}
+          الهاتف: {numberPhone}
         </CustomTypography>
         <CustomTypography variant="body2">
           البريد الإلكتروني: {email}
         </CustomTypography>
         <CustomTypography variant="body2">
-          العنوان: {address}
+          العنوان: {judicialCouncil}
         </CustomTypography>
       </Box>
       <CardContent />
