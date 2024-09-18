@@ -4,9 +4,9 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 const staffMembers = [
-  { name: 'ا.منار الشمري', avatar: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60', phone: '1234567890', whatsapp: '1234567890' },
-  { name: 'ا.رانيا شمسان', avatar: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60', phone: '2345678901', whatsapp: '2345678901' },
-  { name: 'ا.محمد الكليبي', avatar: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60', phone: '3456789012', whatsapp: '3456789012' },
+  { name: 'مخفي نسرين  ', avatar: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60', phone: '213555861056', whatsapp: '213555861056' },
+  { name: 'ثابتي تاج الدين', avatar: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60', phone: '213676207276', whatsapp: '213676207276' },
+  { name: 'ثابتي محمد ياسين', avatar: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60', phone: '213698450313', whatsapp: '213698450313' },
 ];
 
 const CustomerServicePage = () => {

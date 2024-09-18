@@ -29,7 +29,7 @@ const LawyerCard = ({ firstName, lastName, role, professionalCardNumber, numberP
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <Avatar src={profilePicture} alt={name} sx={{ width: 80, height: 80 }} />
+            <Avatar src={profilePicture} sx={{ width: 80, height: 80 }} />
           </Grid>
           <Grid item xs={8}>
             <Typography variant="h6" component="div">
@@ -39,7 +39,7 @@ const LawyerCard = ({ firstName, lastName, role, professionalCardNumber, numberP
               {lastName}
             </SubtitleTypography>
             <Typography variant="body2" color="text.secondary">
-              {role}
+              {role.name}
             </Typography>
             <CustomTypography variant="body2">
               رقم الترخيص: {professionalCardNumber}
@@ -55,7 +55,7 @@ const LawyerCard = ({ firstName, lastName, role, professionalCardNumber, numberP
           البريد الإلكتروني: {email}
         </CustomTypography>
         <CustomTypography variant="body2">
-          العنوان: {judicialCouncil}
+          العنوان: {judicialCouncil.name}
         </CustomTypography>
       </Box>
       <CardContent />

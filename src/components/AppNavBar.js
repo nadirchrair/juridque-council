@@ -90,7 +90,7 @@ const handleDrawerToggle = () => {
           <img 
     src={logoesaj} // Replace with your actual logo path
     alt="Platform Logo" 
-    style={{ marginRight: '115px', height: '50px' }} // Adjust styles accordingly
+    style={{ marginRight: '115px', height: '75px',borderRadius:'10px',marginTop:'6px',marginBottom:'6px' }} // Adjust styles accordingly
   />
             <Box sx={{ 
               display: { xs: 'none', sm: 'flex' }, 

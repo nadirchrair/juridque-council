@@ -8,12 +8,14 @@ import image2 from '../assets/pic2.jpg';
 const items = [
     {
         name: "E-SAJ",
-        description: "اكتشف كيف يمكن أن تعزز كفاءة أعمالك القانونية ",
+        text1:"Votre assistant judiciaire en ligne",
+        description: "منصتنا تضمن لك دعمًا قانونيًا فائق الجودة لكل مسألة",
         image: image1 // Replace with your image URL
     },
     {
         name: "E-SAJ",
-        description: "اكتشف كيف يمكن أن تسرع من عملياتك القانوني",
+        text1:"Votre assistant judiciaire en ligne",
+        description: "ثقة مطلقة وحلول قانونية سريعة",
         image: image2 // Replace with your image URL
     }
 ];
@@ -56,7 +58,7 @@ function CarouselComponent() {
 }
 
 function Item(props) {
-    const { name, description, image } = props.item;
+    const { name,text1, description, image } = props.item;
 
     return (
         <Paper
@@ -80,7 +82,9 @@ function Item(props) {
                 textAlign: 'center',
                 borderRadius: '10px'
             }}>
-                <h1>{name}</h1>
+                <h1  sx={{fontSize:'65px',color:'green'}}>{name}</h1>
+                <h3  sx={{fontSize:'65px',color:'green'}}>{text1}</h3>
+                
                 <p   style={{ 
                         fontSize: '40px',
                        
