@@ -1,6 +1,7 @@
 // PaymentOption.js
 import React from "react";
-import { Card, CardContent, Typography, CardMedia, Button } from "@mui/material";
+import { Card, CardContent, Typography, CardMedia } from "@mui/material";
+import Button from "@mui/material/Button";
 
 const PaymentOption = ({ name, logo, onClick }) => {
   return (
@@ -16,7 +17,7 @@ const PaymentOption = ({ name, logo, onClick }) => {
         <Button 
           fullWidth 
           variant="contained" 
-          color="rgb(15, 64, 61)" 
+          
           onClick={onClick}
           sx={{ marginTop: 2 }}
         >

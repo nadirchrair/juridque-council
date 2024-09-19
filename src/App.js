@@ -102,7 +102,7 @@ export const appRouter = createBrowserRouter([
     element: <CompanyServices />,
   },
   {
-    path: "/انظم الينا",
+    path: "/انضم-الينا",
     element: <JoinUs />,
   },
   {

@@ -102,7 +102,9 @@ export default function Register() {
       setShowAlert(true);
       setTimeout(() => {
         setShowAlert(false);
-        navigate('/login');
+        navigate("/payment");
+
+     //   navigate('/login');
       }, 3000);
     } catch (error) {
       console.error("Registration Error:", error);
@@ -119,7 +121,6 @@ export default function Register() {
         profession.length >= 1 && state.length >= 1 && judicialCouncil && role) {
       handleRegister();  // Call the function to handle registration
       navigate("/payment");
-
     } else {
       setErr("يرجى إدخال معلومات صحيحة.");
     }

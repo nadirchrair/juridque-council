@@ -24,7 +24,13 @@ const AppNavBar = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-
+  const menuItems = [
+    { name: 'الرئيسية', path: '' },
+    { name: 'خدماتنا', path: 'خدماتنا' },
+    { name: 'استشارة', path: 'استشارة' },
+    { name: 'للشركات', path: 'للشركات' },
+    { name: 'انضم الينا', path: 'انضم-الينا' },
+  ];
     const theme = createTheme({
         palette: {
           primary: {
@@ -49,7 +55,7 @@ const handleDrawerToggle = () => {
           </Typography>
           <Divider />
           <List>
-            {['الرئيسية ', 'خدماتنا', 'استشارة','للشركات'].map((item) => (
+            {['الرئيسية ', 'خدماتنا', 'استشارة','للشركات','انضم الينا'].map((item) => (
               <ListItem key={item} disablePadding>
                 <ListItemButton sx={{ textAlign: 'center' }}>
                   <ListItemText primary={item} />
@@ -99,9 +105,9 @@ const handleDrawerToggle = () => {
               marginLeft: 'auto',
               marginRight: 'auto'
             }}>
-              {['الرئيسية ', 'خدماتنا', 'استشارة','للشركات',' انضم الينا'].map((item) => (
-                <Typography variant="h6" key={item} sx={{ color: `${theme.palette.primary.main}`, marginRight: 3 ,'&:hover':{cursor:'pointer'}}} onClick={() => navigate(`/${item}`)}>
-                  {item}
+              {menuItems.map((item) => (
+                <Typography variant="h6" key={item} sx={{ color: `${theme.palette.primary.main}`, marginRight: 3 ,'&:hover':{cursor:'pointer'}}} onClick={() => navigate(`/${item.path}`)}>
+                  {item.name}
                 </Typography>
               ))}
               {token ? (
