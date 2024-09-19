@@ -63,7 +63,7 @@ const CompanyServices = () => {
                 خدمات قانونية متكاملة للشركات
               </Typography>
               <Typography variant="body1" paragraph align="center">
-                في SAJ-E، نحن نقدم خدمات قانونية متكاملة للشركات، ونعمل كفريق قانوني مخصص لهم. فريقنا من الخبراء هنا لدعمك في جميع جوانب القضايا القانونية التي تواجه شركتك.
+                في E-SAJ، نحن نقدم خدمات قانونية متكاملة للشركات، ونعمل كفريق قانوني مخصص لهم. فريقنا من الخبراء هنا لدعمك في جميع جوانب القضايا القانونية التي تواجه شركتك.
               </Typography>
               <Typography variant="h6" gutterBottom color="secondary">
                 خدماتنا للشركات تشمل:
@@ -132,8 +132,8 @@ const CompanyServices = () => {
                 }}
                 onClick={handleFormRedirect}
               >
-                استشارة مجانية
-              </Button>
+طلب الانضمام         
+     </Button>
             </Box>
           </Grid>
         </Grid>

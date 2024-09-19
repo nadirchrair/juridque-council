@@ -28,7 +28,7 @@ const Footer1 = () => {
             </Box>
           </Grid>
           <Grid item xs={12} md={4} textAlign="center">
-            <Typography variant="h6" sx={{ mb: 2 }}>  E-SA</Typography>
+            <Typography variant="h6" sx={{ mb: 2 }}>  E-SAJ</Typography>
             <Typography>أفضل منصة لرقمنة خدمات المساعدين القضائيين بالجزائر
 "مرحبًا بكم في منصتنا القانونية الرائدة، حيث ندمج الخبرة والتقنية لتقديم استشارات وحلول قانونية متكاملة تلبي جميع احتياجاتكم"</Typography>
             <Box sx={{ mt: 2 }}>

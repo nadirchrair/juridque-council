@@ -24,7 +24,7 @@ import { loginUser } from '../Features/authSlice';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      Created by Cherair Nadir {' © '} {new Date().getFullYear()}
+      Created by E-SAJ {' © '} {new Date().getFullYear()}
     </Typography>
   );
 }
