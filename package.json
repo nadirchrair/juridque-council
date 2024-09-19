@@ -1,8 +1,8 @@
 {
-  "homepage":"https://nadirchrair.github.io/juridque-council/",
   "name": "juridque-council",
   "version": "0.0.0",
   "private": true,
+  "homepage":"./",
   "dependencies": {
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
@@ -28,9 +28,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d build",
+    "start": "react-scripts  start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
