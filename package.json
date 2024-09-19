@@ -1,4 +1,5 @@
 {
+  "homepage":"https://nadirchrair.github.io/juridque-council/",
   "name": "reactjs-user-dashboard-panel",
   "version": "0.0.0",
   "private": true,
@@ -28,6 +29,8 @@
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
+    "predeploy":"npm run build",
+    "deploy":"gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -55,6 +58,7 @@
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@babel/preset-env": "^7.25.3",
-    "@babel/preset-react": "^7.24.7"
+    "@babel/preset-react": "^7.24.7",
+    "gh-pages": "^6.1.1"
   }
 }
