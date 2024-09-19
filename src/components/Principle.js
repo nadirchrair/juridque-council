@@ -17,6 +17,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { styled } from '@mui/system';
 import AppNavBar from './AppNavBar';
 import Footer1 from './Footer1';
+import { fetchLawyers } from '../Fetch';
 const drawerWidth = 240;
 
 const theme = createTheme({
@@ -35,12 +36,28 @@ const theme = createTheme({
 
 const Principle = () => {
   const [offers, setOffers] = useState([]);
+  const [lawyers, setLawyers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 3;
   const [totalCards, setTotalCards] = useState(0);
   const totalPages = Math.ceil(totalCards / cardsPerPage);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
+  useEffect(() => {
+    const loadLawyers = async () => {
+      try {
+        const data = await fetchLawyers(); // Fetch with pagination and filters
+        setLawyers(data.data); // Assuming the API returns the lawyers in 'data.lawyers'
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to load lawyers');
+        setLoading(false);
+      }
+    };
+
+    loadLawyers(); // Fetch lawyers when the page or filters change
+  }, []);//currentPage, filters]);
 /*
   useEffect(() => {
     const loadOffers = async () => {
@@ -111,6 +128,7 @@ const Principle = () => {
     }
   };
 
+
  
   const data = [
     {
@@ -147,71 +165,7 @@ const Principle = () => {
   
   
 
-  const lawyers = [
-    {
-      name: 'John Doe',
-      title: 'Attorney at Law',
-      wilaya: 'Algiers',
-      licenseNumber: '123456789',
-      phone: '+213 123 456 789',
-      email: 'john.doe@example.com',
-      address: '1234 Lawyer St, Algiers, Algeria',
-      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-      name: 'Jane Smith',
-      title: 'Attorney at Law',
-      wilaya: 'Oran',
-      licenseNumber: '987654321',
-      phone: '+213 987 654 321',
-      email: 'jane.smith@example.com',
-      address: '5678 Lawyer Ave, Oran, Algeria',
-      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    // Add 4 more lawyers with the same structure
-    {
-      name: 'Ahmed Ali',
-      title: 'Attorney at Law',
-      wilaya: 'Constantine',
-      licenseNumber: '111213141',
-      phone: '+213 111 213 141',
-      email: 'ahmed.ali@example.com',
-      address: '9101 Lawyer Rd, Constantine, Algeria',
-      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-      name: 'Fatima Zahra',
-      title: 'Attorney at Law',
-      wilaya: 'Annaba',
-      licenseNumber: '515161718',
-      phone: '+213 515 161 718',
-      email: 'fatima.zahra@example.com',
-      address: '1234 Lawyer St, Annaba, Algeria',
-      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-      name: 'Omar Ibn Khattab',
-      title: 'Attorney at Law',
-      wilaya: 'Blida',
-      licenseNumber: '919293949',
-      phone: '+213 919 293 949',
-      email: 'omar.khattab@example.com',
-      address: '5678 Lawyer Ave, Blida, Algeria',
-      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-      name: 'Khadija Bint Khuwaylid',
-      title: 'Attorney at Law',
-      wilaya: 'Tlemcen',
-      licenseNumber: '010203040',
-      phone: '+213 010 203 040',
-      email: 'khadija.khuwaylid@example.com',
-      address: '9101 Lawyer Rd, Tlemcen, Algeria',
-      profilePicture: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    }
-  ];
-
-  return (
+return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
