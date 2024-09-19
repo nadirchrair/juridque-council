@@ -23,6 +23,7 @@ import AddBlog from "./components/AdminDashboard/AddBlog";
 import ConsultationTable from "./components/AdminDashboard/ConsultationTable";
 import JoinUs from "./components/JoinUs";
 import JoinUs2 from "./components/AdminDashboard/JoinUs2";
+import PaymentChoice from "./payment/PaymentChoice";
 export const App = () => {
   return (
     <React.Fragment>
@@ -107,6 +108,11 @@ export const appRouter = createBrowserRouter([
   {
     path: "/form",
     element: <ConsultationForm />,
+  },
+  
+  {
+    path: "/payment",
+    element: <PaymentChoice />,
   },
 
 ]);

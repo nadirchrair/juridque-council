@@ -99,7 +99,7 @@ const handleDrawerToggle = () => {
               marginLeft: 'auto',
               marginRight: 'auto'
             }}>
-              {['الرئيسية ', 'خدماتنا', 'استشارة','للشركات','انظم الينا'].map((item) => (
+              {['الرئيسية ', 'خدماتنا', 'استشارة','للشركات',' انضم الينا'].map((item) => (
                 <Typography variant="h6" key={item} sx={{ color: `${theme.palette.primary.main}`, marginRight: 3 ,'&:hover':{cursor:'pointer'}}} onClick={() => navigate(`/${item}`)}>
                   {item}
                 </Typography>

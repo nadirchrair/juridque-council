@@ -118,6 +118,8 @@ export default function Register() {
         lastName.length >= 1 && email.length >= 1 && 
         profession.length >= 1 && state.length >= 1 && judicialCouncil && role) {
       handleRegister();  // Call the function to handle registration
+      navigate("/payment");
+
     } else {
       setErr("يرجى إدخال معلومات صحيحة.");
     }

@@ -218,6 +218,28 @@ return (
             </Grid>
           ))}
         </Grid>
+
+        <Box sx={{ p: 3, mt: 5 ,mr:4}}>
+        <Typography variant="h4" gutterBottom>
+        <Box display="inline-flex" alignItems="center">
+
+المحظر القضائي
+<StyledIcon />
+</Box>
+
+      </Typography>
+      <Typography variant="subtitle1" gutterBottom>
+        يمكنك اختيار المحظر القضائي المناسب لك
+      </Typography>
+
+      </Box>
+        <Grid container  sx={{ marginTop: 5 }}>
+          {lawyers.map((lawyer, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index} sx={{pb:2}}>
+              <LawyerCard {...lawyer} />
+            </Grid>
+          ))}
+        </Grid>
        <CustomerServicePage/>
        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#f9f9f9' }}>
     {data.map((cardData, index) => (
