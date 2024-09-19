@@ -223,13 +223,13 @@ return (
         <Typography variant="h4" gutterBottom>
         <Box display="inline-flex" alignItems="center">
 
-المحظر القضائي
+المحضر القضائي
 <StyledIcon />
 </Box>
 
       </Typography>
       <Typography variant="subtitle1" gutterBottom>
-        يمكنك اختيار المحظر القضائي المناسب لك
+        يمكنك اختيار المحضر القضائي المناسب لك
       </Typography>
 
       </Box>

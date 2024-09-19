@@ -59,7 +59,7 @@ const fetchLawyers = async (filters = {}) => {
   }).toString();
 
   try {
-    const response = await fetch(`http://droit.onrender.com/api/consultantsLawyers/NotAuth`, {
+    const response = await fetch(`https://droit.onrender.com/api/consultantsLawyers/NotAuth`, {
       method: 'GET', // POST method for sending pagination in body
      
    //   body: JSON.stringify({ page, limit }), // Send page and limit in body

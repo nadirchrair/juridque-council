@@ -13,29 +13,24 @@ const Footer1 = () => {
           <Grid item xs={12} md={4}>
             <Typography variant="h6" sx={{ mb: 2 }}>خدماتنا</Typography>
             <Box sx={{ mb: 2 }}>
-              <Link href="#" color="inherit" underline="none">اختيار العمالة</Link><br />
-              <Link href="#" color="inherit" underline="none">تعاقد الاستقدام</Link><br />
-              <Link href="#" color="inherit" underline="none">سياسات الاستقدام</Link><br />
-              <Link href="#" color="inherit" underline="none">مركز المساعدة</Link><br />
-              <Link href="#" color="inherit" underline="none">الأسئلة الشائعة</Link><br />
-              <Link href="#" color="inherit" underline="none">المقالات</Link><br />
-              <Link href="#" color="inherit" underline="none">رقم مسؤول نقل الكفالة: 0548454148</Link>
+              <Link href="#" color="inherit" underline="none"> اختيار المجلس</Link><br />
+              <Link href="#" color="inherit" underline="none">تسجيل الدخول</Link><br />
+             
+              <Link href="#" color="inherit" underline="none">رقم المسؤول: 0799747851</Link>
             </Box>
           </Grid>
           <Grid item xs={12} md={4}>
             <Typography variant="h6" sx={{ mb: 2 }}>المزيد</Typography>
             <Box sx={{ mb: 2 }}>
-              <Typography>عنوان مكتبنا: الشيخ جابر الاحمد الصباح حي المعيزيلة الرياض 13231</Typography>
-              <Typography>البريد الإلكتروني: info@rawafadnejd.sa</Typography>
-              <Typography>المبيعات: 8003030309</Typography>
-              <Typography>الشكاوى والاقتراحات: 8003030309</Typography>
-              <Typography>رقم السجل التجاري للمكتب: 1010595382</Typography>
-              <Typography>رقم المسجلة لدى وزارة الموارد البشرية: 41012064</Typography>
+              <Typography>عنوان مكتبنا: ولاية معسكر,الجزائر</Typography>
+             
+              <Typography>رقم السجل التجاري للمكتب: 0000</Typography>
             </Box>
           </Grid>
           <Grid item xs={12} md={4} textAlign="center">
-            <Typography variant="h6" sx={{ mb: 2 }}>رواد نجد للاستقدام</Typography>
-            <Typography>أفضل مكتب استقدام العمالة المنزلية السعودية بمقاييس دولية موثوقة عالية نسعى لتقديم تجربة استقدام مثالية لعملائنا.</Typography>
+            <Typography variant="h6" sx={{ mb: 2 }}>  E-SA</Typography>
+            <Typography>أفضل منصة لرقمنة خدمات المساعدين القضائيين بالجزائر
+"مرحبًا بكم في منصتنا القانونية الرائدة، حيث ندمج الخبرة والتقنية لتقديم استشارات وحلول قانونية متكاملة تلبي جميع احتياجاتكم"</Typography>
             <Box sx={{ mt: 2 }}>
               <IconButton color="inherit" href="#"><Twitter /></IconButton>
               <IconButton color="inherit" href="#"><Instagram /></IconButton>
@@ -45,7 +40,7 @@ const Footer1 = () => {
           </Grid>
         </Grid>
         <Box textAlign="center" mt={4}>
-          <Typography>© جميع الحقوق محفوظة رواد نجد للاستقدام 2024</Typography>
+          <Typography>© جميع الحقوق محفوظة E-SAJ-2024</Typography>
         </Box>
       </Container>
     </Box>  
