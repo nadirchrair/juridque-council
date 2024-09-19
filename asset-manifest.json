@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/juridque-council/static/css/main.c870f9dd.css",
+    "main.js": "/juridque-council/static/js/main.598b0f4c.js",
+    "static/js/453.87398f44.chunk.js": "/juridque-council/static/js/453.87398f44.chunk.js",
+    "static/media/page2.jpg": "/juridque-council/static/media/page2.c9d04658d336fd276177.jpg",
+    "static/media/pic2.jpg": "/juridque-council/static/media/pic2.44566d4d0a27a0c1deb5.jpg",
+    "static/media/pic1.jpg": "/juridque-council/static/media/pic1.2b3242ef13dd9f2ea5eb.jpg",
+    "static/media/pic3.jpg": "/juridque-council/static/media/pic3.e3a459f72b7acffdbae2.jpg",
+    "static/media/logoesaj.jpg": "/juridque-council/static/media/logoesaj.bc5bb65be777a664834e.jpg",
+    "static/media/pic5.jpg": "/juridque-council/static/media/pic5.865799bcb9b4b2ea8437.jpg",
+    "index.html": "/juridque-council/index.html",
+    "main.c870f9dd.css.map": "/juridque-council/static/css/main.c870f9dd.css.map",
+    "main.598b0f4c.js.map": "/juridque-council/static/js/main.598b0f4c.js.map",
+    "453.87398f44.chunk.js.map": "/juridque-council/static/js/453.87398f44.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c870f9dd.css",
+    "static/js/main.598b0f4c.js"
+  ]
+}
