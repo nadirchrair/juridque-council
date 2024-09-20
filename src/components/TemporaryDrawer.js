@@ -41,7 +41,6 @@ export default function TemporaryDrawer({ status, setStatus }) {
   useEffect(() => {
     setOpen(status);
   }, [status]);
-
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
     setStatus(newOpen);
@@ -50,7 +49,6 @@ export default function TemporaryDrawer({ status, setStatus }) {
     dispatch(logout()); // Dispatch the logout action to clear token and user data
     navigate('/login'); // Redirect the user to the login page
   };
-
   const getIconComponent = (index) => {
     switch (index) {
       case 0:
@@ -65,29 +63,6 @@ export default function TemporaryDrawer({ status, setStatus }) {
         return <GroupAddIcon />;
       default:
         return null;
-    }
-  };
-
-  const clickComponent = (index) => {
-    switch (index) {
-      case 0:
-        navigate("profile");
-        break;
-      case 1:
-        navigate("documents");
-        break;
-      case 2:
-        navigate("write-article");
-        break;
-      case 3:
-        navigate("consultations");
-        break;
-      case 4:
-        navigate("join-us");
-        break;
-      default:
-        navigate("/");
-        break;
     }
   };
 
