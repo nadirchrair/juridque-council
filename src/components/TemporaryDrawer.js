@@ -12,10 +12,11 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import ArticleIcon from '@mui/icons-material/Article';
 import HelpIcon from '@mui/icons-material/Help';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
-
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { logout } from "../Features/authSlice";
 
 const theme = createTheme({
   palette: {
@@ -33,6 +34,7 @@ const theme = createTheme({
 
 export default function TemporaryDrawer({ status, setStatus }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // Hook to dispatch actions
 
   const [open, setOpen] = React.useState(false);
 
@@ -43,6 +45,10 @@ export default function TemporaryDrawer({ status, setStatus }) {
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
     setStatus(newOpen);
+  };
+  const handleLogout = () => {
+    dispatch(logout()); // Dispatch the logout action to clear token and user data
+    navigate('/login'); // Redirect the user to the login page
   };
 
   const getIconComponent = (index) => {
@@ -90,8 +96,15 @@ export default function TemporaryDrawer({ status, setStatus }) {
       <List>
         {["المستندات", "الاستشارات", "انضم لنا","تسجيل الخروج"].map(
           (text, index) => (
-            <ListItem key={text} onClick={() => navigate(`/admin/${text}`)} disablePadding>
-              <ListItemButton >
+            <ListItem
+            key={text}
+            disablePadding
+            onClick={() =>
+              text === "تسجيل الخروج"
+                ? handleLogout() // Call handleLogout if "تسجيل الخروج" is clicked
+                : navigate(`/admin/${text}`) // Navigate for other items
+            }
+          >              <ListItemButton >
                 <ListItemIcon>{getIconComponent(index)}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
