@@ -15,7 +15,9 @@ const Footer1 = () => {
             <Box sx={{ mb: 2 }}>
               <Link href="#" color="inherit" underline="none"> اختيار المجلس</Link><br />
               <Link href="#" color="inherit" underline="none">تسجيل الدخول</Link><br />
-             
+              <Link href="#" color="inherit" underline="none">سياسة المنصة</Link><br />
+              <Link href="#" color="inherit" underline="none">ايمايل المصة : slamadda11@gmail.com </Link><br />
+
               <Link href="#" color="inherit" underline="none">رقم المسؤول: 0799747851</Link>
             </Box>
           </Grid>
