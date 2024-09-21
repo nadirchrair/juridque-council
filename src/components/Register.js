@@ -257,49 +257,59 @@ export default function Register() {
               </Select>
             </FormControl>
             <FormControl fullWidth required margin="normal">
-              <InputLabel htmlFor="password">كلمة المرور</InputLabel>
-              <OutlinedInput
-                id="password"
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="كلمة المرور"
-              />
+              <InputLabel htmlFor="password"    // Aligns the label to the right
+>كلمة المرور</InputLabel>
+<OutlinedInput
+    id="password"
+    type={showPassword ? "text" : "password"}
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    endAdornment={
+      <InputAdornment position="end">
+        <IconButton
+          aria-label="toggle password visibility"
+          onClick={handleClickShowPassword}
+          onMouseDown={handleMouseDownPassword}
+          edge="end"
+          
+        >
+          {showPassword ? <VisibilityOff /> : <Visibility />}
+        </IconButton>
+      </InputAdornment>
+    }
+    
+    label="كلمة المرور"
+  />
             </FormControl>
             <FormControl fullWidth required margin="normal">
-              <InputLabel htmlFor="confirm-password">تأكيد كلمة المرور</InputLabel>
-              <OutlinedInput
-                id="confirm-password"
-                type={showPassword ? "text" : "password"}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="تأكيد كلمة المرور"
-              />
-            </FormControl>
+  <InputLabel
+    htmlFor="confirm-password"
+    // Aligns the label to the right
+  >
+    تأكيد كلمة المرور
+  </InputLabel>
+  <OutlinedInput
+    id="confirm-password"
+    type={showPassword ? "text" : "password"}
+    value={confirmPassword}
+    onChange={(e) => setConfirmPassword(e.target.value)}
+    
+    endAdornment={
+      <InputAdornment position="end">
+        <IconButton
+          aria-label="toggle password visibility"
+          onClick={handleClickShowPassword}
+          onMouseDown={handleMouseDownPassword}
+          edge="end"
+        >
+          {showPassword ? <VisibilityOff /> : <Visibility />}
+        </IconButton>
+      </InputAdornment>
+    }
+
+    label="تأكيد كلمة المرور"
+  />
+</FormControl>
             <Typography variant="body2" color="error" align="center" sx={{ mt: 2 }}>
               {err}
             </Typography>

@@ -101,10 +101,10 @@ export default function Login() {
                 autoComplete='phone'
                 autoFocus
               />
-              <FormControl sx={{ mt: 2, width: '100%' }} variant='outlined'>
-                <InputLabel htmlFor='outlined-adornment-password'>كلمة المرور</InputLabel>
+              <FormControl sx={{ mt: 2, width: '100%'}} variant='outlined'>
+                <InputLabel>كلمة المرور</InputLabel>
                 <OutlinedInput
-                  id='outlined-adornment-password'
+                  
                   type={showPassword ? 'text' : 'password'}
                   name='password'
                   autoComplete='current-password'
