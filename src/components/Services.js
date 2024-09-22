@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppNavBar from './AppNavBar';
 import Footer1 from './Footer1';
@@ -29,32 +29,33 @@ const Services = () => {
   const [totalPages, setTotalPages] = useState(1); // Manage total pages
   const lawyersPerPage = 20; // Show 20 lawyers per page
 
-  // State to store filters
-  {/**
-  const [filters, setFilters] = useState({
-    age: '',
-    profession: '',
-    religion: '',
-    experience: '',
-    nationality: ''
-  }); */}
+  const advancedSearchRef = useRef(null); // Create ref for AdvancedSearch
 
   // Fetch lawyers data based on current page and filters
-  useEffect(() => {
-    const loadLawyers = async () => {
-      try {
-        const data = await fetchLawyers(); // Fetch with pagination and filters
-        setLawyers(data.data); // Assuming the API returns the lawyers in 'data.lawyers'
-       // setTotalPages(data.totalPages); // Assuming the API returns the total number of pages
-        setLoading(false);
-      } catch (err) {
-        setError('Failed to load lawyers');
-        setLoading(false);
-      }
-    };
+  const fetchFilteredLawyers = async (filters = {}) => {
+    setLoading(true);
+    try {
+      const data = await fetchLawyers({ ...filters, page: currentPage, limit: lawyersPerPage });
+      setLawyers(data.data); // Assuming the API returns the lawyers in 'data.lawyers'
+      setTotalPages(data.totalPages); // Assuming the API returns the total number of pages
+      setLoading(false);
+    } catch (err) {
+      setError('Failed to load lawyers');
+      setLoading(false);
+    }
+  };
 
-    loadLawyers(); // Fetch lawyers when the page or filters change
-  }, []);//currentPage, filters]);
+  useEffect(() => {
+    // Initial load or when page changes
+    fetchFilteredLawyers();
+  }, [currentPage]);
+
+  // Handle search from AdvancedSearch
+  const handleApplyFilters = (filters) => {
+    // Reset to first page when applying new filters
+    setCurrentPage(1);
+    fetchFilteredLawyers(filters); // Fetch data with the new filters
+  };
 
   // Handle page change (Next/Previous)
   const handleNextPage = () => {
@@ -68,8 +69,6 @@ const Services = () => {
       setCurrentPage(currentPage - 1);
     }
   };
-
-  
 
   if (loading) {
     return <div>Loading...</div>; // Show loading while fetching
@@ -87,7 +86,7 @@ const Services = () => {
       </Box>
       <Box sx={{ mt: 12 }}>
         {/* Pass handleApplyFilters to AdvancedSearch */}
-        <AdvancedSearch theme={theme}  />
+        <AdvancedSearch ref={advancedSearchRef} onSearch={handleApplyFilters} />
       </Box>
       <Grid container sx={{ marginTop: 5, marginBottom: 10 }}>
         {lawyers.map((lawyer, index) => (
@@ -99,17 +98,17 @@ const Services = () => {
 
       {/* Pagination Controls */}
       <Box sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
-        <Button 
-          onClick={handlePrevPage} 
-          disabled={currentPage === 1} 
+        <Button
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}
           variant="contained"
           sx={{ mx: 2 }}
         >
           Previous
         </Button>
-        <Button 
-          onClick={handleNextPage} 
-          disabled={currentPage === totalPages} 
+        <Button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
           variant="contained"
           sx={{ mx: 2 }}
         >

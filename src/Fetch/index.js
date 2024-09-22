@@ -46,20 +46,16 @@ const submitConsultation = async (formData) => {
 };
 
 const fetchLawyers = async (filters = {}) => {
-  const { age, profession, religion, experience, nationality, searchTerm } = filters;
+  const { judicialCouncil,role } = filters;
 
   // Construct query parameters based on filters
   const queryParams = new URLSearchParams({
-    ...(age && { age }),
-    ...(profession && { profession }),
-    ...(religion && { religion }),
-    ...(experience && { experience }),
-    ...(nationality && { nationality }),
-    ...(searchTerm && { searchTerm }), // Include search term if provided
+    ...(judicialCouncil && { judicialCouncil }),
+    ...(role && { role }),
   }).toString();
 
   try {
-    const response = await fetch(`https://droit.onrender.com/api/consultantsLawyers/NotAuth`, {
+    const response = await fetch(`https://droit.onrender.com/api/consultantsLawyers/NotAuth?${queryParams}`, {
       method: 'GET', // POST method for sending pagination in body
      
    //   body: JSON.stringify({ page, limit }), // Send page and limit in body
