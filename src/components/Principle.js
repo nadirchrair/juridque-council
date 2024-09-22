@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CarouselComponent from './CarouselComponent';
 import Aprops from './Aprops';
-import Cardcomponents from './Cardcomponents';
 import CustomerServicePage from './CustomerServicePage';
 import LawyerCard from './LawyerCard';
-import { Container, Grid } from '@mui/material';
+import {  Grid } from '@mui/material';
 import CardWork from './CardWork';
 import ContactForm from './ContactForm';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -18,7 +16,6 @@ import { styled } from '@mui/system';
 import AppNavBar from './AppNavBar';
 import Footer1 from './Footer1';
 import { fetchLawyers } from '../Fetch';
-const drawerWidth = 240;
 
 const theme = createTheme({
   palette: {
@@ -41,9 +38,7 @@ const Principle = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 3;
   const [totalCards, setTotalCards] = useState(0);
-  const totalPages = Math.ceil(totalCards / cardsPerPage);
   const [error, setError] = useState(null);
-  const [search, setSearch] = useState('');
   useEffect(() => {
     const loadLawyers = async () => {
       try {
@@ -58,20 +53,6 @@ const Principle = () => {
 
     loadLawyers(); // Fetch lawyers when the page or filters change
   }, []);//currentPage, filters]);
-/*
-  useEffect(() => {
-    const loadOffers = async () => {
-      try {
-        const data = await TousOffre();
-        setOffers(data);
-        setTotalCards(data.length);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-
-    loadOffers();
-  }, []);*/
 
   const StyledIcon = styled(ArrowBackIcon)(({ theme }) => ({
     marginRight: '10px',
@@ -87,46 +68,11 @@ const Principle = () => {
       color: 'white',
     },
   }));
-  /*
-  useEffect(() => {
-    const searchOffers = async () => {
-      try {
-        const data = await RechercheOffer(search);
-        setOffers(data);
-        setTotalCards(data.length);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-
-    if (search) {
-      searchOffers();
-    } else {
-      const loadOffers = async () => {
-        try {
-          const data = await TousOffre();
-          setOffers(data);
-          setTotalCards(data.length);
-        } catch (error) {
-          setError(error.message);
-        }
-      };
-
-      loadOffers();
-    }
-  }, [search]);
-
-  */
+ 
 
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
   const currentOffers = offers.slice(startIndex, endIndex);
-
-  const handlePageChange = (page) => {
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
-    }
-  };
 
 
  
@@ -191,11 +137,15 @@ return (
 
       </Box>
         <Grid container  sx={{ marginTop: 5 }}>
-          {lawyers.map((lawyer, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index} sx={{pb:2,       }}>
-              <LawyerCard {...lawyer}  />
-            </Grid>
-          ))}
+        {lawyers.map((lawyer, index) => (
+  <Grid item xs={12} sm={6} md={4} key={index} sx={{ pb: 2 }}>
+    {lawyer.role.name === "lawyers" ? (
+      <LawyerCard {...lawyer} />
+    ) : (
+      <div></div>  
+    )}
+  </Grid>
+))}
         </Grid>
         <Box sx={{ p: 3, mt: 5 ,mr:4}}>
         <Typography variant="h4" gutterBottom>
@@ -214,8 +164,11 @@ return (
         <Grid container  sx={{ marginTop: 5 }}>
           {lawyers.map((lawyer, index) => (
             <Grid item xs={12} sm={6} md={4} key={index} sx={{pb:2}}>
-              <LawyerCard {...lawyer} />
-            </Grid>
+    {lawyer.role.name === "translateur" ? (
+      <LawyerCard {...lawyer} />
+    ) : (
+      <div></div>  
+    )}            </Grid>
           ))}
         </Grid>
 
@@ -236,8 +189,11 @@ return (
         <Grid container  sx={{ marginTop: 5 }}>
           {lawyers.map((lawyer, index) => (
             <Grid item xs={12} sm={6} md={4} key={index} sx={{pb:2}}>
-              <LawyerCard {...lawyer} />
-            </Grid>
+    {lawyer.role.name === "notaire" ? (
+      <LawyerCard {...lawyer} />
+    ) : (
+      <div></div>  
+    )}            </Grid>
           ))}
         </Grid>
        <CustomerServicePage/>
