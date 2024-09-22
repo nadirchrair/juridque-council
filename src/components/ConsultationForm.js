@@ -107,10 +107,10 @@ const ConsultationForm = () => {
           }}
         >
           <Typography variant="h4" gutterBottom align="center" color="primary">
-            استشارة قانونية مجانية
+             دعم  قانوني 
           </Typography>
           <Typography variant="body1" paragraph align="center">
-            يرجى ملء النموذج أدناه للحصول على استشارة قانونية مجانية لشركتك.
+            يرجى ملء النموذج أدناه للحصول على الدعم  القانوني   لشركتك.
           </Typography>
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 4 }}>
             <Grid container spacing={2}>

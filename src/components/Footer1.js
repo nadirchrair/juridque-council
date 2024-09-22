@@ -16,9 +16,7 @@ const Footer1 = () => {
               <Link href="#" color="inherit" underline="none"> اختيار المجلس</Link><br />
               <Link href="#" color="inherit" underline="none">تسجيل الدخول</Link><br />
               <Link href="#" color="inherit" underline="none">سياسة المنصة</Link><br />
-              <Link href="#" color="inherit" underline="none">ايمايل المصة : slamadda11@gmail.com </Link><br />
-
-              <Link href="#" color="inherit" underline="none">رقم المسؤول: 0799747851</Link>
+             
             </Box>
           </Grid>
           <Grid item xs={12} md={4}>
@@ -27,6 +25,9 @@ const Footer1 = () => {
               <Typography>عنوان مكتبنا: ولاية معسكر,الجزائر</Typography>
              
               <Typography>رقم السجل التجاري للمكتب: 0000</Typography>
+              <Link href="#" color="inherit" underline="none">ايمايل المنصة : slamadda11@gmail.com </Link><br />
+
+<Link href="#" color="inherit" underline="none">رقم المسؤول: 0799747851</Link>
             </Box>
           </Grid>
           <Grid item xs={12} md={4} textAlign="center">
