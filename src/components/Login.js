@@ -20,6 +20,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import { loginUser } from '../Features/authSlice';
+import { LocationOn } from '@mui/icons-material';
 
 function Copyright(props) {
   return (
@@ -92,15 +93,16 @@ export default function Login() {
             </Typography>
             <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
-                margin='normal'
                 required
                 fullWidth
                 id='numberPhone'
                 label='رقم الهاتف'
                 name='numberPhone'
-                autoComplete='phone'
-                autoFocus
-              />
+                variant="outlined"
+                 InputProps={{
+            startAdornment: <></>,
+          }}
+      />
               <FormControl sx={{ mt: 2, width: '100%'}} variant='outlined'>
                 <InputLabel>كلمة المرور</InputLabel>
                 <OutlinedInput
@@ -108,13 +110,13 @@ export default function Login() {
                   type={showPassword ? 'text' : 'password'}
                   name='password'
                   autoComplete='current-password'
-                  endAdornment={
-                    <InputAdornment position='end'>
+                  startAdornment={
+                    <InputAdornment position='start'>
                       <IconButton
                         aria-label='toggle password visibility'
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
-                        edge='end'
+                        edge='start'
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>

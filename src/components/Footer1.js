@@ -25,7 +25,7 @@ const Footer1 = () => {
               <Typography>عنوان مكتبنا: ولاية معسكر,الجزائر</Typography>
              
               <Typography>رقم السجل التجاري للمكتب: 0000</Typography>
-              <Link href="#" color="inherit" underline="none">ايمايل المنصة : slamadda11@gmail.com </Link><br />
+              <Link href="#" color="inherit" underline="none">ايمايل  المسؤول : slamadda11@gmail.com </Link><br />
 
 <Link href="#" color="inherit" underline="none">رقم المسؤول: 0799747851</Link>
             </Box>

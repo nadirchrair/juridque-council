@@ -62,12 +62,12 @@ const AdvancedSearch = forwardRef(({ onSearch }, ref) => {
         </FormControl>
 
         <FormControl variant="outlined" sx={{ minWidth: isSmallScreen ? '100%' : 140, flex: 1 }}>
-          <InputLabel id="role-label">الدور</InputLabel>
+          <InputLabel id="role-label">االمهنة</InputLabel>
           <Select
             labelId="role-label"
             id="role"
             value={role}
-            label="الدور"
+            label="االمهنة"
             onChange={(e) => setRole(e.target.value)}
           >
             {roleOptions.map((option) => (

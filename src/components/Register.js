@@ -188,32 +188,27 @@ export default function Register() {
               value={numberPhone}
               onChange={(e) => setnumberPhone(e.target.value)}
             />
-            <FormControl fullWidth required margin="normal">
-              <InputLabel id="profession-label">المهنة</InputLabel>
-              <Select
-                labelId="profession-label"
-                id="profession"
-                value={profession}
-                label="المهنة"
-                onChange={(e) => setProfession(e.target.value)}
-              >
-                <MenuItem value="محامي">محامي</MenuItem>
-                <MenuItem value="مترجم">مترجم</MenuItem>
-              </Select>
-            </FormControl>
-            {profession && (
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="professionalCardNumber"
-                label={`رقم البطاقة المهنية (${profession})`}
-                name="professionalCardNumber"
-                type="number"
-                value={professionalCardNumber}
-                onChange={(e) => setprofessionalCardNumber(e.target.value)}
-              />
-            )}
+         
+           
+         <TextField
+  margin="normal"
+  required
+  fullWidth
+  id="professionalCardNumber"
+  label={`رقم البطاقة المهنية`}
+  name="professionalCardNumber"
+  type="text" // Changed to text for easier validation
+  value={professionalCardNumber}
+  onChange={(e) => {
+    const value = e.target.value;
+    // Allow only numbers and limit to 5 digits
+    if (/^\d{0,5}$/.test(value)) {
+      setprofessionalCardNumber(value);
+    }
+  }}
+  inputProps={{ maxLength: 5 }} // Enforce 5 digits maximum
+/>
+
             <TextField
               margin="normal"
               required
@@ -241,12 +236,12 @@ export default function Register() {
               </Select>
             </FormControl>
             <FormControl fullWidth required margin="normal">
-              <InputLabel id="role-label">الدور</InputLabel>
+              <InputLabel id="role-label">المهنة</InputLabel>
               <Select
                 labelId="role-label"
                 id="role"
                 value={role}
-                label="الدور"
+                label="المهنة"
                 onChange={(e) => setRole(e.target.value)}
               >
                 {roleOptions.map((option) => (
@@ -264,13 +259,13 @@ export default function Register() {
     type={showPassword ? "text" : "password"}
     value={password}
     onChange={(e) => setPassword(e.target.value)}
-    endAdornment={
-      <InputAdornment position="end">
+    startAdornment={
+      <InputAdornment position="start">
         <IconButton
           aria-label="toggle password visibility"
           onClick={handleClickShowPassword}
           onMouseDown={handleMouseDownPassword}
-          edge="end"
+          edge="start"
           
         >
           {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -294,13 +289,13 @@ export default function Register() {
     value={confirmPassword}
     onChange={(e) => setConfirmPassword(e.target.value)}
     
-    endAdornment={
-      <InputAdornment position="end">
+    startAdornment={
+      <InputAdornment position="start">
         <IconButton
           aria-label="toggle password visibility"
           onClick={handleClickShowPassword}
           onMouseDown={handleMouseDownPassword}
-          edge="end"
+          edge="start"
         >
           {showPassword ? <VisibilityOff /> : <Visibility />}
         </IconButton>
