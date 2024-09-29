@@ -115,15 +115,8 @@ export default function Register() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (numberPhone.length >= 1 && password.length >= 1 && confirmPassword.length >= 1 &&
-        password === confirmPassword && firstName.length >= 1 &&
-        lastName.length >= 1 && email.length >= 1 && 
-        profession.length >= 1 && state.length >= 1 && judicialCouncil && role) {
       handleRegister();  // Call the function to handle registration
-      navigate("/payment");
-    } else {
-      setErr("يرجى إدخال معلومات صحيحة.");
-    }
+  
   };
 
   const Login = (event) => {
